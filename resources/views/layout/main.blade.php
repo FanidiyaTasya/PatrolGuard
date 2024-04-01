@@ -19,7 +19,9 @@
     <link href="assets/css/argon-dashboard-tailwind.css?v=1.0.1" rel="stylesheet" />
   </head>
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-    @section('content')
+
+    @yield('content')
+    
   </body>
   <!-- plugin for charts  -->
   <script src="assets/js/plugins/chartjs.min.js" async></script>

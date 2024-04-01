@@ -432,3 +432,4 @@
 </div>
 <!-- end cards -->
 </main>
+@endsection
