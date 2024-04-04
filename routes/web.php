@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/sign-in', function () {
+Route::get('/', function () {
     return view('sign-in');
 });
 

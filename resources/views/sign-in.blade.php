@@ -29,15 +29,10 @@
             }
         }
 
-        /* Menerapkan animasi mengetik */
         .typing-animation {
-
             animation: typing 2s steps(30, end);
-            /* Menggunakan animasi typing selama 2 detik */
             white-space: nowrap;
-            /* Membuat teks tidak wrap */
             margin-top: 80px;
-            /* Memberi jarak atas */
         }
 
         .pw {
@@ -46,9 +41,7 @@
 
         .mb-0 {
             margin-top: 20px;
-            /* Jarak atas 20 piksel */
             margin-bottom: 20px;
-            /* Jarak bawah 20 piksel */
         }
 
         .textleft {
@@ -63,19 +56,16 @@
             <div class="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
                 <div class="container z-1">
                     <div class="flex flex-wrap -mx-3">
-                        <div
-                            class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
+                        <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                             <div
                                 class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border">
                                 <div class="textleft">
                                     <h4 class="font-bold">Sign In</h4>
                                 </div>
 
-
-
                                 <div class="flex-auto p-6">
                                     <div class="p-6 bg-gray-100 rounded-lg shadow-md"
-                                        style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 8px 8px -1px rgba(0, 0, 0, 0.06); /* Adjust the values to change shadow size */">
+                                        style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 8px 8px -1px rgba(0, 0, 0, 0.06);">
                                         <form role="form">
                                             <p class="mb-3">Enter your email and password to sign in</p>
                                             <div class="mb-4">
@@ -108,16 +98,15 @@
                                             </div>
                                             <div
                                                 class="border-black/12.5 rounded-b-2xl border-t-0 border-solid p-6 text-center pt-0 px-1 sm:px-6">
-                                                <p class="mx-auto mb-6 leading-normal text-sm">Don't have an account? <a
-                                                        href="/sign-up"
-                                                        class="font-semibold text-transparent bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500">Sign
-                                                        up</a></p>
+                                                <p class="mx-auto mb-6 leading-normal text-sm">Don't have an account?
+                                                    <a href="/sign-up" class="font-semibold text-transparent bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500">
+                                                        Sign up
+                                                    </a>
+                                                </p>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div
@@ -136,10 +125,10 @@
                                     </div>
                                 </div>
 
-
-                                <p class="z-20 text-white ">The more effortless the writing looks, the more effort the
-                                    writer actually
-                                    put into the process.</p>
+                                <p class="z-20 text-white ">
+                                    The more effortless the writing looks, the more effort the 
+                                    writer actually put into the process.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -147,6 +136,7 @@
             </div>
         </section>
     </main>
+
 </body>
 <script>
     // Mengambil semua elemen dengan kelas typing-animation
@@ -175,10 +165,8 @@
         }, 270);
     });
 </script>
-
 <!-- plugin for scrollbar  -->
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <!-- main script file  -->
 <script src="../assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>
-
 </html>
