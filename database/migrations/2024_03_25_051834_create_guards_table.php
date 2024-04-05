@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void {
         Schema::create('guards', function (Blueprint $table) {
             $table->id();
-            $table->string('nik');
-            $table->string('fullname_guard');
-            $table->string('email_guard');
-            $table->string('password_guard');
-            $table->string('phone_number');
+            $table->string('nik', 16)->unique();
+            $table->string('fullname_guard', 100);
+            $table->date('birth_date');
+            $table->string('email_guard', 50);
+            $table->string('password_guard', 100);
+            $table->string('phone_number', 20);
             $table->string('address');
-            $table->string('photo');
+            $table->text('photo')->nullable();
         });
     }
 

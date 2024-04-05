@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->timestamps('check_in_time');
-            $table->timestamps('check_out_time');
+            $table->datetime('check_in_time')->nullable();
+            $table->datetime('check_out_time')->nullable();
             $table->string('status');
         });
     }
