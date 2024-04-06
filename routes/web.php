@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,9 +15,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/guard', function () {
-    return view('guard');
+Route::get('/form', function () {
+    return view('guard.insert');
 });
+
+Route::get('/guard', [GuardController::class, 'showGuard']);
 
 Route::get('/schedule', function () {
     return view('schedule');

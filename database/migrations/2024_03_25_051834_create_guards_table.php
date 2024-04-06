@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void {
         Schema::create('guards', function (Blueprint $table) {
             $table->id();
+            // $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id');
             $table->string('nik', 16)->unique();
             $table->string('fullname_guard', 100);
             $table->date('birth_date');
