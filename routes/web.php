@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GuardController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,9 +18,15 @@ Route::get('/dashboard', function () {
 
 Route::resource('/guard', GuardController::class);
 
-Route::get('/schedule', function () {
-    return view('schedule');
+// Menampilkan form untuk menambahkan jadwal
+Route::get('/schedule/add', function () {
+    return view('schedule.insert-schedule');
 });
+// Menyimpan jadwal baru ke dalam database
+Route::post('/schedule/add', [ScheduleController::class, 'addSchedule'])->name('schedule.add');
+// Menampilkan daftar jadwal
+Route::get('/schedule', [ScheduleController::class, 'showSchedule']);
+
 
 Route::get('/report', function () {
     return view('report');
