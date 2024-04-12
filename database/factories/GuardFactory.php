@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,8 +16,9 @@ class GuardFactory extends Factory {
      */
     public function definition(): array {
         $faker = fake('id_ID');
+        $user_id = User::inRandomOrder()->first()->id;
         return [
-            'nik' => $faker->unique()->numerify('################'),
+            'user_id' => $user_id,
             'fullname_guard' => $faker->name,
             'birth_date' => $faker->date,
             'email_guard' => $faker->unique()->safeEmail,

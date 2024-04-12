@@ -14,11 +14,11 @@ return new class extends Migration
             $table->id();
             // $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id');
-            $table->string('nik', 16)->unique();
+            // $table->string('nik', 16)->unique();
             $table->string('fullname_guard', 100);
             $table->date('birth_date');
             $table->string('email_guard', 50);
-            $table->string('password_guard', 100);
+            $table->string('password_guard', 100)->nullable();
             $table->string('phone_number', 20);
             $table->string('address');
             $table->text('photo')->nullable();

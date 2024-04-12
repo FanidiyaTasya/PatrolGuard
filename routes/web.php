@@ -15,11 +15,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/form', function () {
-    return view('guard.insert');
-});
-
-Route::get('/guard', [GuardController::class, 'showGuard']);
+Route::resource('/guard', GuardController::class);
 
 Route::get('/schedule', function () {
     return view('schedule');
