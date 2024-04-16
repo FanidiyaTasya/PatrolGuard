@@ -65,7 +65,7 @@
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
                               <i class="fas fa-trash-alt"></i> <!-- Icon delete -->
                           </a>
-                      </td>                      
+                        </td>                      
                       </tr>
                       @endforeach
                     </tbody>
