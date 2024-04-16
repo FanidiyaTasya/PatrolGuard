@@ -16,9 +16,7 @@ class GuardFactory extends Factory {
      */
     public function definition(): array {
         $faker = fake('id_ID');
-        $user_id = User::inRandomOrder()->first()->id;
         return [
-            'user_id' => $user_id,
             'fullname_guard' => $faker->name,
             'birth_date' => $faker->date,
             'email_guard' => $faker->unique()->safeEmail,
