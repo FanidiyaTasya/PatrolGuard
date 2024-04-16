@@ -12,14 +12,20 @@ class GuardController extends Controller
      */
     public function index() {
         $guards = Guard::all();
-        return view("guard.guard", compact("guards"));
+        return view('guard.guard', compact('guards'), 
+        [
+            'title' => 'Data Satpam'
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view("guard.create");
+        return view('guard.create',
+        [
+            'title' => 'Data Satpam'
+        ]);
     }
 
     /**

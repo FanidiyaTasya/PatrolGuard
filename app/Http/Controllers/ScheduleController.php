@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
-    public function showSchedule()
-    {
+    public function showSchedule() {
         // Mengambil data dari database
         $schedules = DB::table('schedules')->get();
 
         // Mengirim data ke view 
-        return view('schedule.schedule', compact('schedules'));
+        return view('schedule.schedule', compact('schedules'), 
+        [
+            'title' => 'Jadwal'
+        ]);
     }
 
     // Menampilkan view insert dengan data guard
@@ -26,7 +28,10 @@ class ScheduleController extends Controller
 
         // // Mengirim data ke view 'schedule.insert-schedule'
         // return view('schedule.insert-schedule', compact('guards'));
-        return view('schedule.insert-schedule');
+        return view('schedule.insert-schedule', 
+        [
+            'title' => 'Jadwal'
+        ]);
     }
 
     // Menambahkan jadwal baru
