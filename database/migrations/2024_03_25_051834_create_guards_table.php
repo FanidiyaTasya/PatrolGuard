@@ -13,14 +13,13 @@ return new class extends Migration
         Schema::create('guards', function (Blueprint $table) {
             $table->id();
             // $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('user_id');
             // $table->string('nik', 16)->unique();
             $table->string('fullname_guard', 100);
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->string('email_guard', 50);
             $table->string('password_guard', 100)->nullable();
-            $table->string('phone_number', 20);
-            $table->string('address');
+            $table->string('phone_number', 20)->nullable();
+            $table->string('address')->nullable();
             $table->text('photo')->nullable();
         });
     }
