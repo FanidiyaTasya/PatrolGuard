@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Schedule;
 use App\Models\Shift;
 use Illuminate\Http\Request;
 
-class ScheduleController extends Controller {
+class ShiftController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
         $shifts = Shift::all();
-        $schedules = Schedule::all();
-        return view('schedule.schedule', compact('shifts', 'schedules'),
+        return view('schedule.schedule', compact('shifts'),
         [
             'title' => 'Data Jadwal'
         ]);
@@ -23,10 +21,7 @@ class ScheduleController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('schedule.insert',
-        [
-            'title' => 'Data Jadwal'
-        ]);
+        //
     }
 
     /**
@@ -40,7 +35,7 @@ class ScheduleController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(Schedule $schedule)
+    public function show(Shift $shift)
     {
         //
     }
@@ -48,7 +43,7 @@ class ScheduleController extends Controller {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Schedule $schedule)
+    public function edit(Shift $shift)
     {
         //
     }
@@ -56,7 +51,7 @@ class ScheduleController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, Shift $shift)
     {
         //
     }
@@ -64,7 +59,7 @@ class ScheduleController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Shift $shift)
     {
         //
     }
