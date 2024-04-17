@@ -17,10 +17,10 @@ class GuardFactory extends Factory {
     public function definition(): array {
         $faker = fake('id_ID');
         return [
-            'fullname_guard' => $faker->name,
+            'name' => $faker->name,
             'birth_date' => $faker->date,
-            'email_guard' => $faker->unique()->safeEmail,
-            'password_guard' => bcrypt('guard123'),
+            'email' => $faker->unique()->safeEmail,
+            'password' => bcrypt('guard123'),
             'phone_number' => $faker->regexify('08[0-9]{9}'),
             'address' => $faker->address,
             'photo' => null,

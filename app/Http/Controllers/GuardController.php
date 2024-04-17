@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Guard;
 use Illuminate\Http\Request;
 
-class GuardController extends Controller
-{
+class GuardController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
+        $title = 'Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         $guards = Guard::all();
         return view('guard.guard', compact('guards'), 
         [
@@ -32,23 +35,15 @@ class GuardController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        // $validate = $request->validate([
-        //     'fullname' => 'required|max:150',
-        //     'email' => 'required',
-        //     'phone_number' => 'required',
-        //     'birth_date' => 'required',
-        // ]);
-        // Guard::create($validate);
-
         $validatedData = $request->validate([
-            'fullname' => 'required',
+            'name' => 'required',
             'birth_date' => 'required',
             'email' => 'required|email|unique:guards,email',
             'password' => 'required|min:6',
             'phone_number' => 'required',
             'address' => 'required',
         ], [
-            'fullname.required' => 'Kolom Nama harus diisi',
+            'name.required' => 'Kolom Nama harus diisi',
             'birth_date.required' => 'Tanggal Lahir harus diisi',
             'email.required' => 'Kolom Email harus diisi',
             'email.email' => 'Format Email tidak valid',
@@ -60,38 +55,51 @@ class GuardController extends Controller
         ]);
         
         Guard::create($validatedData);
-        return redirect('/guard')->with('success','Berhasil ditambahkan!');
+        return redirect('/guard')->with('toast_success','Berhasil ditambahkan!');
         }
 
     /**
      * Display the specified resource.
      */
-    public function show(Guard $guard)
-    {
-        //
+    public function show(Guard $guard) {
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guard $guard)
-    {
-        //
+    public function edit(Guard $guard) {
+        return view('guard.edit', 
+        [
+            'title' => 'Data Satpam',
+            'guard' => $guard
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Guard $guard)
-    {
-        //
+    public function update(Request $request, Guard $guard) {
+        $rules = [
+            'name' => 'required',
+            'birth_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+        ];
+        if ($request->email != $guard->email) {
+            $rules['email'] = 'required|email|unique:guards,email';
+        }
+        $validate = $request->validate($rules);
+
+        Guard::where('id', $guard->id)->update($validate);
+        return redirect('/guard')->with('success','Data has been updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guard $guard)
-    {
-        //
+    public function destroy(Guard $guard) {
+        Guard::destroy($guard->id);
+        return redirect('/guard')->with('success','Data has been deleted!');
     }
 }

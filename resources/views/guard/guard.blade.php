@@ -36,7 +36,7 @@
                               <img src="{{ asset('assets/img/team-2.jpg') }}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl" alt="user1" />
                             </div>
                             <div class="flex flex-col justify-center">
-                              <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->fullname_guard }}</p>
+                              <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->name }}</p>
                             </div>
                           </div>
                         </td>
@@ -45,11 +45,10 @@
                           <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->nik }}</p>
                         </td> --}}
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->email_guard }}</p>
+                          <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->email }}</p>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          {{-- <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ date_create_from_format('Y-m-d', $guard->birth_date)->format('d M Y') }}</p> --}}
-                          <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->birth_date }}</p>
+                          <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ date("d F Y", strtotime($guard->birth_date)) }}</p>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->phone_number }}</p>
@@ -58,12 +57,24 @@
                           <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->address }}</p>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                              <i class="fas fa-edit"></i> <!-- Icon edit -->
+                          {{-- <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                              <i class="fas fa-edit"></i>
                           </a>
                           |
-                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                              <i class="fas fa-trash-alt"></i> <!-- Icon delete -->
+                          <form action="/guard/{{ $guard->id }}" method="POST" class="d-inline">
+                            @method('delete')
+                            @csrf
+                            <button type="button" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" data-confirm-delete="true">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                          </form> --}}
+
+                          <a href="/guard/{{ $guard->id }}/edit" class="btn btn-secondary text-xs border-0">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                          |
+                          <a href="/guard/{{ $guard->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
+                            <i class="fas fa-trash-alt"></i>
                           </a>
                         </td>                      
                       </tr>

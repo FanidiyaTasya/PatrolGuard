@@ -14,10 +14,10 @@ return new class extends Migration
             $table->id();
             // $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             // $table->string('nik', 16)->unique();
-            $table->string('fullname_guard', 100);
+            $table->string('name', 100);
             $table->date('birth_date')->nullable();
-            $table->string('email_guard', 50);
-            $table->string('password_guard', 100)->nullable();
+            $table->string('email', 50);
+            $table->string('password', 100)->nullable();
             $table->string('phone_number', 20)->nullable();
             $table->string('address')->nullable();
             $table->text('photo')->nullable();

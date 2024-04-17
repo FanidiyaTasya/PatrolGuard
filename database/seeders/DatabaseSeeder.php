@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder {
      */
     public function run(): void {
         Admin::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Fanidiya Tasya',
+            'email' => 'tasya@gmail.com',
             'password' => bcrypt('1234')
         ]);
         Guard::create([
-            'name_guard' => 'Guard',
-            'email_guard' => 'guard@gmail.com',
-            'password_guard' => bcrypt('1234')
+            'name' => 'Guard',
+            'email' => 'guard@gmail.com',
+            'password' => bcrypt('1234')
         ]);
         Guard::factory()->count(5)->create();
     }
