@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('guard_id');
             $table->foreignId('shift_id');
-            $table->date('day');
+            $table->string('day');
             
         });
     }

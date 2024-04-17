@@ -10,4 +10,12 @@ class Schedule extends Model {
 
     protected $guarded = ['id'];
     public $timestamps = false;
+    
+    public function guardRelation() {
+        return $this->belongsTo(Guard::class, 'guard_id');
+    }
+
+    public function shift() {
+        return $this->belongsTo(Shift::class);
+    }
 }
