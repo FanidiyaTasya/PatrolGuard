@@ -7,7 +7,6 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/LogoPatrol.png') }}" />
     <link rel="icon" type="image/png" href="{{ asset('assets/img/LogoPatrol.png') }}" />
     <title>Patrol Track</title>
-    @notifyCss
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -26,29 +25,19 @@
     @yield('content')
 
 </body>
-<x-notify::notify />
-        @notifyJs
 <script>
-    // Mengambil semua elemen dengan kelas typing-animation
     const elements = document.querySelectorAll('.typing-animation');
 
-    // Loop melalui setiap elemen
     elements.forEach(element => {
-        // Mendapatkan teks dari elemen
         const text = element.innerText;
-        // Menyimpan teks ke dalam data atribut
         element.setAttribute('data-text', text);
-        // Menghapus teks dari elemen
         element.innerText = '';
 
-        // Memulai animasi mengetik dengan interval 100ms
         let index = 0;
         setInterval(() => {
-            // Menambahkan satu karakter pada setiap interval
             element.innerText = element.getAttribute('data-text').slice(0, index);
             index++;
 
-            // Mengulangi teks dari awal jika sudah mencapai panjang teks
             if (index > text.length) {
                 index = 0;
             }
@@ -59,5 +48,4 @@
 <script src="{{ asset('../assets/js/plugins/perfect-scrollbar.min.js') }}" async></script>
 <!-- main script file  -->
 <script src="{{ asset('../assets/js/argon-dashboard-tailwind.js?v=1.0.1') }}" async></script>
-
 </html>

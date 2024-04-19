@@ -15,12 +15,6 @@
                     <div class="flex flex-wrap -mx-3">
                         <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                             <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border">
-                                @if (session()->has('success'))        
-                                    <div class="alert alert-success">
-                                        <span class="message">{{ session('success') }}</span>
-                                        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-                                    </div>
-                                @endif
                                 
                                 @if (session()->has('error'))        
                                     <div class="alert alert-danger">
