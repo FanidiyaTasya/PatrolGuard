@@ -57,18 +57,6 @@
                           <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->address }}</p>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          {{-- <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                              <i class="fas fa-edit"></i>
-                          </a>
-                          |
-                          <form action="/guard/{{ $guard->id }}" method="POST" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <button type="button" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" data-confirm-delete="true">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                          </form> --}}
-
                           <a href="/guard/{{ $guard->id }}/edit" class="btn btn-secondary text-xs border-0">
                             <i class="fas fa-edit"></i>
                           </a>
