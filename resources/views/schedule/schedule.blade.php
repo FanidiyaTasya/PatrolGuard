@@ -7,7 +7,6 @@
                     <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                         <h6 class="dark:text-white">Jadwal Shift</h6>
                         <div class="flex justify-end">
-                            <!-- Button trigger modal -->
                             <button class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85" data-bs-toggle="modal" data-bs-target="#shiftModal">
                                 Tambah
                             </button>
@@ -38,11 +37,19 @@
                                             <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $shift->end_time }}</p>
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                            <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                            {{-- <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             |
                                             <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a> --}}
+                                            <a href="javascript:void(0);" class="btn btn-secondary text-xs border-0 shiftModalEditLink" 
+                                                data-shift-id="{{ $shift->id }}" data-bs-toggle="modal" data-bs-target="#shiftModalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            |
+                                            <a href="/schedules/shift/{{ $shift->id }}/delete" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td> 
@@ -50,6 +57,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            @include('schedule.shift.edit')
                         </div>
                     </div>
                 </div>
@@ -60,7 +68,7 @@
                     <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                         <h6 class="dark:text-white">Jadwal Satpam</h6>
                         <div class="flex justify-end">
-                            <a href="/schedule/create" class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</a>
+                            <a href="/schedules/guard/create" class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</a>
                         </div>
                     </div>
                     <div class="flex-auto px-0 pt-0 pb-2">
@@ -87,11 +95,11 @@
                                             <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $schedule->shift->shift_name }}</p>
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                            <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                            <a href="#" class="btn btn-secondary text-xs border-0">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             |
-                                            <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                            <a href="#" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td> 

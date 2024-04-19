@@ -7,10 +7,12 @@ use App\Models\Shift;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index() {
+        $title = 'Delete!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         $shifts = Shift::all();
         $schedules = Schedule::all();
         return view('schedule.schedule', compact('shifts', 'schedules'),
@@ -19,53 +21,95 @@ class ScheduleController extends Controller {
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
+    public function createGuard() {
         return view('schedule.insert',
         [
             'title' => 'Data Jadwal'
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function storeGuard(Request $request) {
+        // Validasi input
+        $request->validate([
+            'guard_id' => 'required',
+            'shift' => 'required',
+            'tanggal' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        // Membuat jadwal baru
+        Schedule::create([
+            'guard_id' => $request->guard_id,
+            'shift' => $request->shift,
+            'tanggal' => $request->tanggal,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+        ]);
+
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Schedule $schedule)
-    {
-        //
+    public function showGuard(Schedule $schedule) {
+        // tampilan lihat detail datanya
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Schedule $schedule)
-    {
-        //
+    public function editGuard(Schedule $schedule) {
+        // tampilan form editnya
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Schedule $schedule)
-    {
-        //
+    public function updateGuard(Request $request, Schedule $schedule) {
+        // edit datanya
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Schedule $schedule)
-    {
-        //
+    public function destroyGuard(Schedule $schedule) {
+        // hapus datanya
+    }
+
+    public function createShift() {
+        return view('schedule.insert',
+        [
+            'title' => 'Data Jadwal'
+        ]);
+    }
+
+    public function storeShift(Request $request) {
+        $validatedData = $request->validate([
+            'shift_name' => 'required',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+        ]);
+        Shift::create($validatedData);
+
+        return redirect('/schedules')->with('toast_success', 'Data has been added!');
+    }
+
+    public function editShift($id) {
+        $shift = Shift::find($id);
+        return response()->json([
+            'id' => $shift->id,
+            'shift_name' => $shift->shift_name,
+            'start_time' => $shift->start_time,
+            'end_time' => $shift->end_time,
+        ]);
+    }
+
+    public function updateShift(Request $request, $id) {
+        $rules = [
+            'shift_name' => 'required|string',
+            'start_time' => 'required',
+            'end_time' => 'required|after:start_time',
+        ];
+        $validatedData = $request->validate($rules);
+        $shift = Shift::findOrFail($id);
+        // dd($request->all());
+        $shift->update($validatedData);
+        return redirect('/schedules')->with('toast_success', 'Data has been updated!');
+    }
+
+    public function destroyShift($id) {
+        Shift::where('id', $id)->delete();
+        return redirect('/schedules')->with('success','Data has been deleted!');
     }
 }

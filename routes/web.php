@@ -4,8 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardController;
 use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\ShiftController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,17 +16,24 @@ Route::post("/logout", [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth:admin');
 Route::resource('/guard', GuardController::class)->middleware('auth:admin');
-Route::resource('/schedule', ScheduleController::class)->middleware('auth:admin');
 
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/schedules', [ScheduleController::class, 'index']);
+    
+    Route::prefix('/schedules/guard')->group(function () {
+        Route::get('/create', [ScheduleController::class, 'createGuard']);
+    });
 
-// // Menampilkan daftar jadwal
-// Route::get('/schedule', [ScheduleController::class, 'showSchedule']);
-// // Menampilkan form untuk menambahkan jadwal
-// Route::get('/schedule/add', [ScheduleController::class,'showInsertSchedule']);
-// // Menyimpan jadwal baru ke dalam database
-// Route::post('/schedule/add', [ScheduleController::class, 'addSchedule'])->name('schedule.add');
+    Route::prefix('/schedules/shift')->group(function () {
+        Route::post('/store', [ScheduleController::class, 'storeShift']);
+        Route::get('/{id}/edit', [ScheduleController::class, 'editShift']);
+        Route::put('/{id}', [ScheduleController::class, 'updateShift']);
+        Route::get('/{id}/delete', [ScheduleController::class, 'destroyShift']);
+    });
+});
 
 Route::get('/location', function () {
+    notify()->success('Laravel Notify is awesome!');
     return view('location.location', ['title'=> 'Data Lokasi']);
 });
 
