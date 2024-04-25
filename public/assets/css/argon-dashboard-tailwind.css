@@ -2639,6 +2639,11 @@ h6 {
   color: rgb(251 99 64 / var(--tw-text-opacity));
 }
 
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgb(255 229 0 / var(--tw-text-opacity));
+}
+
 .text-emerald-500 {
   --tw-text-opacity: 1;
   color: rgb(45 206 137 / var(--tw-text-opacity));
