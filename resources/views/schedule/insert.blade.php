@@ -13,12 +13,12 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="guard_id" class="col-md-4 col-form-label text-md-right">Guard</label>
+                                <label for="guard_id" class="col-md-4 col-form-label text-md-right">Satpam</label>
 
                                 <div class="col-md-6">
                                     <select id="guard_id" class="form-control @error('guard_id') is-invalid @enderror"
                                         name="guard_id" required>
-                                        <option value="">Pilih Guard</option>
+                                        <option value="">Pilih Nama</option>
                                         {{-- @foreach ($guards as $guard)
                                             <option value="{{ $guard->id }}">{{ $guard->name }}</option>
                                         @endforeach --}}
@@ -35,9 +35,12 @@
                                 <label for="shift" class="col-md-4 col-form-label text-md-right">Shift</label>
 
                                 <div class="col-md-6">
-                                    <input id="shift" type="text"
-                                        class="form-control @error('shift') is-invalid @enderror" name="shift" required
-                                        autocomplete="shift">
+                                    <select id="shift" class="form-control @error('shift') is-invalid @enderror" name="shift" required autocomplete="shift">
+                                        <option value="">Pilih Shift</option>
+                                        <option value="1">Shift 1</option>
+                                        <option value="2">Shift 2</option>
+                                        <option value="3">Shift 3</option>
+                                    </select>
                                     @error('shift')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -47,42 +50,20 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="tanggal" class="col-md-4 col-form-label text-md-right">Tanggal</label>
+                                <label for="hari" class="col-md-4 col-form-label text-md-right">Hari</label>
 
                                 <div class="col-md-6">
-                                    <input id="tanggal" type="date"
-                                        class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" required>
-                                    @error('tanggal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="start_time" class="col-md-4 col-form-label text-md-right">Waktu Mulai</label>
-
-                                <div class="col-md-6">
-                                    <input id="start_time" type="time"
-                                        class="form-control @error('start_time') is-invalid @enderror" name="start_time"
-                                        required>
-                                    @error('start_time')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="end_time" class="col-md-4 col-form-label text-md-right">Waktu Selesai</label>
-
-                                <div class="col-md-6">
-                                    <input id="end_time" type="time"
-                                        class="form-control @error('end_time') is-invalid @enderror" name="end_time"
-                                        required>
-                                    @error('end_time')
+                                    <select id="hari" class="form-control @error('hari') is-invalid @enderror" name="hari" required>
+                                        <option value="">Pilih Hari</option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jumat">Jumat</option>
+                                        <option value="Sabtu">Sabtu</option>
+                                        <option value="Minggu">Minggu</option>
+                                    </select>
+                                    @error('hari')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -101,4 +82,6 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 @endsection
