@@ -141,17 +141,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var formInputs = document.querySelectorAll("form input");
-        var cancelButton = document.querySelector("button[type='button']");
-
-        cancelButton.addEventListener("click", function() {
-            formInputs.forEach(function(input) {
-                input.value = "";
-            });
-        });
-    });
-    </script>
 @endsection

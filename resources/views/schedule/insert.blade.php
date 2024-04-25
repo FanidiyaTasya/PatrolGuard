@@ -1,27 +1,24 @@
 @extends('layout.main')
 
 @section('content')
-    <!-- form -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Tambah Jadwal</div>
+    <div class="w-full p-6 mx-auto">
+        <div class="flex flex-wrap -mx-3 row justify-content-center">
+            <div class="w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-0">
+                <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                    <form method="POST" action="">
+                        @csrf
+                        <div class="flex-auto p-6">
 
-                    <div class="card-body">
-                        <form method="POST" action="">
-                            @csrf
-
-                            <div class="form-group row">
-                                <label for="guard_id" class="col-md-4 col-form-label text-md-right">Satpam</label>
-
-                                <div class="col-md-6">
-                                    <select id="guard_id" class="form-control @error('guard_id') is-invalid @enderror"
-                                        name="guard_id" required>
+                            <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
+                                <div class="mb-4">
+                                    <label for="guard_id"
+                                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Satpam</label>
+                                    <select id="guard_id" name="guard_id" required
+                                        class="form-control @error('guard_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="">Pilih Nama</option>
-                                        {{-- @foreach ($guards as $guard)
+                                        @foreach ($guards as $guard)
                                             <option value="{{ $guard->id }}">{{ $guard->name }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                     @error('guard_id')
                                         <span class="invalid-feedback" role="alert">
@@ -31,15 +28,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="shift" class="col-md-4 col-form-label text-md-right">Shift</label>
-
-                                <div class="col-md-6">
-                                    <select id="shift" class="form-control @error('shift') is-invalid @enderror" name="shift" required autocomplete="shift">
+                            <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
+                                <div class="mb-4">
+                                    <label for="shift_id"
+                                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Shift</label>
+                                    <select id="shift_id" name="shift_id" required
+                                        class="form-control @error('shift') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="">Pilih Shift</option>
-                                        <option value="1">Shift 1</option>
-                                        <option value="2">Shift 2</option>
-                                        <option value="3">Shift 3</option>
+                                        @foreach ($shifts as $shift)
+                                            <option value="{{ $shift->id }}">{{ $shift->start_time }} - {{ $shift->end_time }}</option>
+                                        @endforeach
                                     </select>
                                     @error('shift')
                                         <span class="invalid-feedback" role="alert">
@@ -49,12 +47,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="hari" class="col-md-4 col-form-label text-md-right">Hari</label>
-
-                                <div class="col-md-6">
-                                    <select id="hari" class="form-control @error('hari') is-invalid @enderror" name="hari" required>
-                                        <option value="">Pilih Hari</option>
+                            <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
+                                <div class="mb-4">
+                                    <label for="hari"
+                                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Hari</label>
+                                    <select id="hari" name="hari" required
+                                        class="form-control @error('hari') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                        <option value="" selected disabled>Pilih Hari</option>
                                         <option value="Senin">Senin</option>
                                         <option value="Selasa">Selasa</option>
                                         <option value="Rabu">Rabu</option>
@@ -71,15 +70,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
+                            <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button class="btn btn-primary">
-                                        Tambah Jadwal
-                                    </button>
+                                    <button type="submit"
+                                        class="px-8 py-2 font-bold leading-normal text-center text-white align-middle transition-all bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Simpan</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

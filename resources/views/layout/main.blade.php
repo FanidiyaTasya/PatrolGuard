@@ -52,4 +52,16 @@
   <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}" async></script>
   <!-- main script file  -->
   <script src="{{ asset('assets/js/argon-dashboard-tailwind.js?v=1.0.1') }}" async></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var formInputs = document.querySelectorAll("form input");
+        var cancelButton = document.querySelector("button[type='button']");
+
+        cancelButton.addEventListener("click", function() {
+            formInputs.forEach(function(input) {
+                input.value = "";
+            });
+        });
+    });
+    </script>
 </html>

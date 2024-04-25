@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guard;
 use App\Models\Schedule;
 use App\Models\Shift;
 use Illuminate\Http\Request;
@@ -22,7 +23,9 @@ class ScheduleController extends Controller {
     }
 
     public function createGuard() {
-        return view('schedule.insert',
+        $guards = Guard::all();
+        $shifts = Shift::all();
+        return view('schedule.insert', compact('guards', 'shifts'),
         [
             'title' => 'Data Jadwal'
         ]);
