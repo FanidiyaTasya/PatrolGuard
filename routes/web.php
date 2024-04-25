@@ -28,13 +28,18 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::post('/store', [ScheduleController::class, 'storeShift']);
         Route::get('/{id}/edit', [ScheduleController::class, 'editShift']);
         Route::put('/{id}', [ScheduleController::class, 'updateShift']);
-        Route::get('/{id}/delete', [ScheduleController::class, 'destroyShift']);
+        Route::delete('/{id}/delete', [ScheduleController::class, 'destroyShift']);
     });
 });
 
 Route::get('/location', function () {
     notify()->success('Laravel Notify is awesome!');
     return view('location.location', ['title'=> 'Data Lokasi']);
+});
+
+Route::get('/presence', function () {
+    notify()->success('Laravel Notify is awesome!');
+    return view('presence.presence', ['title'=> 'Presensi']);
 });
 
 Route::get('/report', function () {

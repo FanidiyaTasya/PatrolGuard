@@ -99,7 +99,7 @@ class ScheduleController extends Controller {
         $rules = [
             'shift_name' => 'required|string',
             'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
+            'end_time' => 'required',
         ];
         $validatedData = $request->validate($rules);
         $shift = Shift::findOrFail($id);
@@ -109,7 +109,8 @@ class ScheduleController extends Controller {
     }
 
     public function destroyShift($id) {
-        Shift::where('id', $id)->delete();
-        return redirect('/schedules')->with('success','Data has been deleted!');
+        $shift = Shift::find($id);
+        $shift->delete();
+        return redirect('/schedules')->with('toast_success', 'Data has been deleted!');
     }
 }
