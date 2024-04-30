@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('detail_reports', function (Blueprint $table) {
+        Schema::create('report_details', function (Blueprint $table) {
             $table->id();
             $table->time('time_report');
             $table->string('attachment');
