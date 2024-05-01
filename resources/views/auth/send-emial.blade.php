@@ -85,7 +85,7 @@
 <div class="container">
     <h2>Forgot Password</h2>
     <img src="img/img.jpg">
-    <p>Please enter your email address below. We will send you instructions on how to reset your password.</p>
+    <p>Please enter  email address below. We will send you instructions on how to reset your password.</p>
     <form action="forgot_password.php" method="post">
         <div class="input-container">
             <i class="fas fa-envelope"></i>
@@ -94,5 +94,5 @@
         <button type="submit" class="btn">Reset Password</button>
     </form>
 </div>
-</body>
+    </body>
 </html>
