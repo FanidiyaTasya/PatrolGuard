@@ -38,7 +38,10 @@
                                             <input type="password" id="password" name="password" placeholder="Password"
                                                 class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
                                         </div>
-    
+                                        <a href="/sign-up" class="font-semibold text-transparent bg-clip-text bg-tosca" style="margin-left: 220px;">forgot password?</a>
+
+
+
                                         <div class="text-center">
                                             <button type="submit"
                                                 class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-tosca border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">
