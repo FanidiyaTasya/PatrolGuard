@@ -70,6 +70,17 @@
                         <div class="flex justify-end">
                             <a href="/schedules/guard/create" class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</a>
                         </div>
+                        <div class="mb-3 flex items-center space-x-4">
+                            {{-- <span class="dark:text-white">Filter:</span> --}}
+                            <select id="guardFilter"
+                                class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                {{-- class="px-2 py-1 border border-gray-300 rounded"> --}}
+                                <option value="">Pilih Satpam</option>
+                                @foreach($guards as $guard)
+                                    <option value="{{ $guard->id }}">{{ $guard->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="flex-auto px-0 pt-0 pb-2">
                         <div class="p-0 overflow-x-auto">
@@ -92,7 +103,7 @@
                                             <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $schedule->day }}</p>
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                            <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $schedule->shift->shift_name }}</p>
+                                            <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $schedule->shift->start_time }} - {{ $schedule->shift->end_time }}</p>
                                         </td>
                                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <a href="#" class="btn btn-secondary text-xs border-0">
@@ -107,9 +118,29 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="flex justify-between px-6">
+                                <div class="mt-3 text-xs text-gray-700">
+                                    Showing
+                                    {{ $schedules->firstItem() }}
+                                    to
+                                    {{ $schedules->lastItem() }}
+                                    of
+                                    {{ $schedules->total() }}
+                                </div>
+                                <div class="mt-1">
+                                    {{ $schedules->links() }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('guardFilter').addEventListener('change', function() {
+                var guardId = this.value;
+                window.location.href = '/schedules?guard=' + guardId;
+            });
+        </script>
+        
 @endsection

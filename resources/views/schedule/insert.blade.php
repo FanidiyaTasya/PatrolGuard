@@ -15,7 +15,7 @@
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Satpam</label>
                                     <select id="guard_id" name="guard_id" required
                                         class="form-control @error('guard_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
-                                        <option value="">Pilih Nama</option>
+                                        <option value="" selected disabled>Pilih Nama</option>
                                         @foreach ($guards as $guard)
                                             <option value="{{ $guard->id }}">{{ $guard->name }}</option>
                                         @endforeach
@@ -34,7 +34,7 @@
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Shift</label>
                                     <select id="shift_id" name="shift_id" required
                                         class="form-control @error('shift') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
-                                        <option value="">Pilih Shift</option>
+                                        <option value="" selected disabled>Pilih Shift</option>
                                         @foreach ($shifts as $shift)
                                             <option value="{{ $shift->id }}">{{ $shift->start_time }} - {{ $shift->end_time }}</option>
                                         @endforeach
