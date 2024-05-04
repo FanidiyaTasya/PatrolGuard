@@ -15,7 +15,7 @@
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Satpam</label>
                                     <select id="guard_id" name="guard_id" required
                                         class="form-control @error('guard_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
-                                        <option value="">Pilih Nama</option>
+                                        <option value="" selected disabled>Pilih Nama</option>
                                         @foreach ($guards as $guard)
                                             <option value="{{ $guard->id }}">{{ $guard->name }}</option>
                                         @endforeach
@@ -33,10 +33,10 @@
                                     <label for="shift_id"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Shift</label>
                                     <select id="shift_id" name="shift_id" required
-                                        class="form-control @error('shift_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                        class="form-control @error('shift') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="">Pilih Shift</option>
-                                        @foreach ($shifts as $shift_id)
-                                            <option value="{{ $shift_id->id }}">{{ $shift_id->start_time }} - {{ $shift_id->end_time }}</option>
+                                        @foreach ($shifts as $shift)
+                                            <option value="{{ $shift->id }}">{{ $shift->start_time }} - {{ $shift->end_time }}</option>
                                         @endforeach
                                     </select>
                                     @error('shift_id')
