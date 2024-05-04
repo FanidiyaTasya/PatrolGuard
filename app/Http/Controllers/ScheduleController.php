@@ -33,25 +33,14 @@ class ScheduleController extends Controller {
 
     public function storeGuard(Request $request) {
         // Validasi input
-        $request->validate([
+        $validatedData = $request->validate([
             'guard_id' => 'required',
-            'shift' => 'required',
-            'tanggal' => 'required|date',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            'shift_id' => 'required',
+            'day' => 'required'
         ]);
-
-        // Membuat jadwal baru
-        Schedule::create([
-            'guard_id' => $request->guard_id,
-            'shift' => $request->shift,
-            'tanggal' => $request->tanggal,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-        ]);
-
+        Schedule::create($validatedData);
         // Redirect ke halaman sebelumnya dengan pesan sukses
-        return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan!');
+        return redirect('/schedules')->with('success', 'Jadwal berhasil ditambahkan!');
     }
 
     public function showGuard(Schedule $schedule) {
@@ -86,6 +75,7 @@ class ScheduleController extends Controller {
         Shift::create($validatedData);
 
         return redirect('/schedules')->with('toast_success', 'Data has been added!');
+        
     }
 
     public function editShift($id) {

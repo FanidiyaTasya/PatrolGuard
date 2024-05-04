@@ -22,6 +22,7 @@ Route::middleware(['auth:admin'])->group(function () {
     
     Route::prefix('/schedules/guard')->group(function () {
         Route::get('/create', [ScheduleController::class, 'createGuard']);
+        Route::post('/store', [ScheduleController::class, 'storeGuard']);
     });
 
     Route::prefix('/schedules/shift')->group(function () {
