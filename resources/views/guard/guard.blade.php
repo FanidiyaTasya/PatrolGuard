@@ -58,11 +58,11 @@
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="/guard/{{ $guard->id }}/edit" class="btn btn-secondary text-xs border-0">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit" aria-hidden="true"></i>
                           </a>
                           |
                           <a href="/guard/{{ $guard->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
                           </a>
                         </td>                      
                       </tr>

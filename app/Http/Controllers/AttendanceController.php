@@ -65,7 +65,6 @@ class AttendanceController extends Controller {
             'attendance' => $attendance,
         ]);
     }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -91,15 +90,15 @@ class AttendanceController extends Controller {
         ]);
     
         Attendance::where('id', $id)->update($rules);
-        return redirect('/presence')->with('success', 'Data has been updated!');
+        return redirect('/presence')->with('toast_success', 'Data has been updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id) {
-        $shift = Attendance::find($id);
-        $shift->delete();
+        $attendance = Attendance::find($id);
+        $attendance->delete();
         return back()->with('toast_success', 'Data has been deleted!');
     }
 }

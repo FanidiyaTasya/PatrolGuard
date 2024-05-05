@@ -43,28 +43,12 @@
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->guardRelation->name }}</p>
                       </td>
-                      {{-- <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                        <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                            <i class="fas fa-edit"></i> <!-- Icon edit -->
-                        </a>
-                        |
-                        <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                            <i class="fas fa-trash-alt"></i> <!-- Icon delete -->
-                        </a>
-                        |
-                        <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
-                            <i class="fas fa-eye"></i> <!-- Icon View -->
-                        </a>
-                      </td> --}}
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <a href="/presence/{{ $attendance->id }}/edit" class="btn btn-secondary text-xs border-0">
                           <i class="fas fa-edit"></i>
                         </a>
                         |
-                        <a href="/presence/{{ $attendance->id }}" class="btn btn-danger text-xs border-0" 
-                            {{-- onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" --}}
-                            data-confirm-delete="true"
-                            >
+                        <a href="/presence/{{ $attendance->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                           <i class="fas fa-trash-alt" aria-hidden="true"></i>
                         </a>         
                         |
