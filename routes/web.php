@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardController;
@@ -12,6 +13,15 @@ Route::post("/", [AuthController::class, 'authenticate']);
 Route::get('/sign-up', function () {
     return view('auth.sign-up');
 });
+Route::get('/forgot-pass', function () {
+    return view('auth.send-email');
+});
+Route::get('/otp', function () {
+    return view('auth.send-otp');
+});
+Route::get('/reset-pass', function () {
+    return view('auth.reset-password');
+});
 Route::post("/logout", [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth:admin');
@@ -23,7 +33,6 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::prefix('/schedules/guard')->group(function () {
         Route::get('/create', [ScheduleController::class, 'createGuard']);
     });
-
     Route::prefix('/schedules/shift')->group(function () {
         Route::post('/store', [ScheduleController::class, 'storeShift']);
         Route::get('/{id}/edit', [ScheduleController::class, 'editShift']);
@@ -32,14 +41,11 @@ Route::middleware(['auth:admin'])->group(function () {
     });
 });
 
+Route::resource('/presence', AttendanceController::class)->middleware('auth:admin');
+
 Route::get('/location', function () {
     notify()->success('Laravel Notify is awesome!');
     return view('location.location', ['title'=> 'Data Lokasi']);
-});
-
-Route::get('/presence', function () {
-    notify()->success('Laravel Notify is awesome!');
-    return view('presence.presence', ['title'=> 'Presensi']);
 });
 
 Route::get('/report', function () {
