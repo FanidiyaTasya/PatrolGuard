@@ -8,8 +8,9 @@
               <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
                 <h6 class="dark:text-white">Data Lokasi</h6>
                 <div class="flex justify-end">
-                    <a href="#" 
-                    class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</a>
+                    <button data-bs-toggle="modal" data-bs-target="#locModal"
+                      class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</button>
+                    @include('location.create')
                 </div>            
             </div>
               <div class="flex-auto px-0 pt-0 pb-2">

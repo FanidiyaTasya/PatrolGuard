@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
-class LocationController extends Controller {
+class ReportController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
     public function index() {
-        
+        return view('pages.report', ['title'=> 'Laporan']);
     }
 
     /**
@@ -32,7 +33,7 @@ class LocationController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(Location $location)
+    public function show(Report $report)
     {
         //
     }
@@ -40,7 +41,7 @@ class LocationController extends Controller {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Location $location)
+    public function edit(Report $report)
     {
         //
     }
@@ -48,7 +49,7 @@ class LocationController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, Report $report)
     {
         //
     }
@@ -56,7 +57,7 @@ class LocationController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Location $location)
+    public function destroy(Report $report)
     {
         //
     }

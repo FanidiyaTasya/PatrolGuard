@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Guard;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,7 @@ class GuardController extends Controller {
         confirmDelete($title, $text);
 
         $guards = Guard::all();
-        return view('guard.guard', compact('guards'), 
-        [
+        return view('pages.guard.guard', compact('guards'), [
             'title' => 'Data Satpam'
         ]);
     }
@@ -25,8 +25,7 @@ class GuardController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('guard.create',
-        [
+        return view('pages.guard.create', [
             'title' => 'Data Satpam'
         ]);
     }
@@ -55,7 +54,7 @@ class GuardController extends Controller {
         ]);
         
         Guard::create($validatedData);
-        return redirect('/guard')->with('toast_success','Berhasil ditambahkan!');
+        return redirect('/guard')->with('success','Data has been added!');
         }
 
     /**
@@ -69,8 +68,7 @@ class GuardController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit(Guard $guard) {
-        return view('guard.edit', 
-        [
+        return view('pages.guard.edit', [
             'title' => 'Data Satpam',
             'guard' => $guard
         ]);

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Guard;
 use App\Models\Schedule;
 use App\Models\Shift;
@@ -21,7 +22,7 @@ class ScheduleController extends Controller {
             $query->where('guard_id', $guardId);
         })->latest('id')->paginate(10);
 
-        return view('schedule.schedule', [
+        return view('pages.schedule.schedule', [
             'title' => 'Data Jadwal',
             'shifts'=> Shift::all(),
             'guards' => Guard::all(),
@@ -30,7 +31,7 @@ class ScheduleController extends Controller {
     }
 
     public function createGuard() {
-        return view('schedule.insert', [
+        return view('pages.schedule.insert', [
             'title' => 'Data Jadwal',
             'guards' => Guard::all(),
             'shifts' => Shift::all()
@@ -48,7 +49,7 @@ class ScheduleController extends Controller {
     }
 
     public function editGuard($id) {
-        return view('schedule.edit', [
+        return view('pages.schedule.edit', [
             'title' => 'Presensi',
             'schedule' => Schedule::find($id),
             'shifts' => Shift::all(),
@@ -74,7 +75,7 @@ class ScheduleController extends Controller {
     }
 
     public function createShift() {
-        return view('schedule.insert',
+        return view('pages.schedule.insert',
         [
             'title' => 'Data Jadwal'
         ]);

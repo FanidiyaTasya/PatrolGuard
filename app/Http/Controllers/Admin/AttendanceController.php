@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Guard;
 use App\Models\Shift;
@@ -16,7 +17,7 @@ class AttendanceController extends Controller {
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('presence.attendance', [
+        return view('pages.presence.attendance', [
             'title' => 'Presensi',
             'attendances' => Attendance::paginate(10),
         ]);
@@ -26,7 +27,7 @@ class AttendanceController extends Controller {
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('presence.create', [
+        return view('pages.presence.create', [
             'title' => 'Presensi',
             'guards' => Guard::all(),
             'shifts' => Shift::all()
@@ -71,7 +72,7 @@ class AttendanceController extends Controller {
      */
     public function edit($id) {
         $attendance = Attendance::findOrFail($id);
-        return view('presence.edit', [
+        return view('pages.presence.edit', [
             'title' => 'Presensi',
             'attendance' => $attendance,
             'shifts' => Shift::all(),
