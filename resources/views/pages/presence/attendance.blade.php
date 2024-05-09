@@ -36,7 +36,7 @@
                     @foreach ($attendances as $attendance)
                     <tr>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->date->translatedFormat('l, d-m-Y') }}</p>
+                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->created_at->translatedFormat('l, d-m-Y') }}</p>
                       </td>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->shift->start_time }} - {{ $attendance->shift->end_time }}</p>

@@ -16,11 +16,12 @@ return new class extends Migration
             // $table->string('nik', 16)->unique();
             $table->string('name', 100);
             $table->date('birth_date')->nullable();
-            $table->string('email', 50);
+            $table->string('email', 50)->unique();
             $table->string('password', 100)->nullable();
             $table->string('phone_number', 20)->nullable();
             $table->string('address')->nullable();
             $table->text('photo')->nullable();
+            $table->string('token', 100)->unique()->nullable();
         });
     }
 

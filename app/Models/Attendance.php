@@ -10,11 +10,17 @@ class Attendance extends Model {
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $dates = ['date'];
+    // protected $dates = ['date'];
 
     public function getDateAttribute($value) {
-        return Carbon::parse($value);
+        // tipedata timestamp
+        return Carbon::createFromTimestamp($value);
     }
+
+    // public function getDateAttribute($value) {
+    //     // tipedata date
+    //     return Carbon::parse($value);
+    // }
 
     public function shift() {
         return $this->belongsTo(Shift::class);

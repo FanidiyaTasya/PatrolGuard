@@ -22,11 +22,6 @@ class DatabaseSeeder extends Seeder {
             'email' => 'tasya@gmail.com',
             'password' => bcrypt('1234')
         ]);
-        // Guard::create([
-        //     'name' => 'Guard',
-        //     'email' => 'guard@gmail.com',
-        //     'password' => bcrypt('1234')
-        // ]);
         Guard::factory()->count(3)->create();
 
         Shift::create([
@@ -47,17 +42,12 @@ class DatabaseSeeder extends Seeder {
             'end_time' => '06:00:00'
         ]);
 
-        // Schedule::create([
-        //     'guard_id' => 1,
-        //     'shift_id' => 1,
-        //     'day' => 'Senin'
-        // ]);
         Schedule::factory()->count(15)->create();
 
         Attendance::create([
             'shift_id' => '1',
-            'guard_id' => '1',
-            'date' => '2023-08-24',
+            'guard_id' => '1',  
+            // 'date' => '2023-08-24',
             'check_in_time' => '06:00:00',
             'check_out_time' => '10:00:00',
             'status' => 'Hadir'

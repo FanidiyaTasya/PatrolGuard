@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->date('report_date');
+            $table->foreignId('guard_id');
+            $table->foreignId('location_id');
+            $table->string('attachment');
+            $table->string('description');
+            $table->timestamps();
         });
     }
 

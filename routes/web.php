@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GuardController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,7 +19,7 @@ Route::middleware('auth:admin')->group(function (){
     Route::resource('/guard', GuardController::class);
     Route::resource('/presence', AttendanceController::class);
     Route::resource('/location', LocationController::class);
-    Route::resource('/report', LocationController::class);
+    Route::resource('/report', ReportController::class);
 
     Route::controller(ScheduleController::class)->group(function () {
         Route::get('/schedules', 'index');

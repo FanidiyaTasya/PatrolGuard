@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guard extends Model {
     use HasFactory;
-    
+
     protected $guarded = ['id'];
     public $timestamps = false;
 
@@ -15,7 +15,7 @@ class Guard extends Model {
         return $this->hasMany(Schedule::class);
     }
 
-    public function attendance() {
+    public function attendances() {
         return $this->hasMany(Attendance::class);
     }
 }
