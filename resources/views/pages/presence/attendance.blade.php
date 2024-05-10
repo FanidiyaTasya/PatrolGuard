@@ -36,7 +36,7 @@
                     @foreach ($attendances as $attendance)
                     <tr>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->created_at->translatedFormat('l, d-m-Y') }}</p>
+                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->date->translatedFormat('l, d-m-Y') }}</p>
                       </td>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->shift->start_time }} - {{ $attendance->shift->end_time }}</p>
@@ -56,7 +56,7 @@
                             <span class="bg-gradient-to-tl from-slate-600 to-slate-300 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Belum Absen</span>
                         @endif
                       </td>
-                      
+
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <a href="/presence/{{ $attendance->id }}/edit" class="btn btn-secondary text-xs border-0">
                           <i class="fas fa-edit"></i>

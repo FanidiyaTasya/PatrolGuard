@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\Attendance;
 use App\Models\Guard;
+use App\Models\Location;
 use App\Models\Schedule;
 use App\Models\Shift;
 use App\Models\User;
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder {
             'email' => 'tasya@gmail.com',
             'password' => bcrypt('1234')
         ]);
-        Guard::factory()->count(3)->create();
+        Guard::factory()->count(9)->create();
 
         Shift::create([
             'shift_name' => 'Shift 1',
@@ -43,14 +44,16 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         Schedule::factory()->count(15)->create();
-
-        Attendance::create([
-            'shift_id' => '1',
-            'guard_id' => '1',  
-            // 'date' => '2023-08-24',
-            'check_in_time' => '06:00:00',
-            'check_out_time' => '10:00:00',
-            'status' => 'Hadir'
-        ]);
+        Location::factory()->count(5)->create();
+        Attendance::factory()->count(5)->create();
+        
+        // Attendance::create([
+        //     'shift_id' => '1',
+        //     'guard_id' => '1',  
+        //     // 'date' => '2023-08-24',
+        //     'check_in_time' => '06:00:00',
+        //     'check_out_time' => '10:00:00',
+        //     'status' => 'Hadir'
+        // ]);
     }
 }

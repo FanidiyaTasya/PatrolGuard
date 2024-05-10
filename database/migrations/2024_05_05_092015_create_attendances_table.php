@@ -13,10 +13,10 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('shift_id');
             $table->foreignId('guard_id');
-            // $table->date('date')->nullable();
+            $table->date('date')->nullable();
             $table->time('check_in_time')->nullable();
             $table->time('check_out_time')->nullable();
-            $table->enum('status', ['Hadir', 'Tidak Hadir', 'Izin'])->nullable();
+            $table->enum('status', ['Hadir', 'Izin'])->nullable();
             $table->string('information')->nullable();
             $table->timestamps();
         });

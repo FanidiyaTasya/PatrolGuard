@@ -12,15 +12,15 @@ class Attendance extends Model {
     protected $guarded = ['id'];
     // protected $dates = ['date'];
 
-    public function getDateAttribute($value) {
-        // tipedata timestamp
-        return Carbon::createFromTimestamp($value);
-    }
-
     // public function getDateAttribute($value) {
-    //     // tipedata date
-    //     return Carbon::parse($value);
+    //     // tipedata timestamp
+    //     return Carbon::createFromTimestamp($value);
     // }
+
+    public function getDateAttribute($value) {
+        // tipedata date
+        return Carbon::parse($value);
+    }
 
     public function shift() {
         return $this->belongsTo(Shift::class);
