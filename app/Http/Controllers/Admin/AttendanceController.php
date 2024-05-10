@@ -52,7 +52,8 @@ class AttendanceController extends Controller {
         }
 
         Attendance::create($validatedData);
-        return redirect('/presence')->with('toast_success', 'Data has been added!');
+        session()->flash('toast_message', 'Data has been added!');
+        return redirect('/presence');
     }
 
     /**
@@ -61,7 +62,7 @@ class AttendanceController extends Controller {
     public function show($id) {
         $attendance = Attendance::findOrFail($id);
         
-        return view('presence.show', [
+        return view('pages.presence.show', [
             'title' => 'Presensi',
             'attendance' => $attendance,
         ]);
@@ -91,7 +92,8 @@ class AttendanceController extends Controller {
         ]);
     
         Attendance::where('id', $id)->update($rules);
-        return redirect('/presence')->with('toast_success', 'Data has been updated!');
+        session()->flash('toast_message', 'Data has been updated!');
+        return redirect('/presence');
     }
 
     /**
@@ -100,6 +102,7 @@ class AttendanceController extends Controller {
     public function destroy($id) {
         $attendance = Attendance::find($id);
         $attendance->delete();
-        return back()->with('toast_success', 'Data has been deleted!');
+        session()->flash('toast_message', 'Data has been deleted!');
+        return redirect('/presence');
     }
 }

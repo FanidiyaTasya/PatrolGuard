@@ -39,3 +39,9 @@ Route::middleware('auth:admin')->group(function (){
         });
     });
 });
+
+Route::get('/test',  function() {
+    return view('test', [
+        'title' => 'Test'
+    ]);
+});

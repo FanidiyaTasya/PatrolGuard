@@ -7,29 +7,13 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/schedules/shift/store">
+                <form method="POST" action="">
                     @csrf
                     <div class="w-full max-w-full px-3 shrink-0 md:flex-0">
                         <div class="mb-4 flex flex-col relative">
-                            <label for="shift_name"
-                                class="inline-block ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Shift</label>
-                            <input type="text" name="shift_name" value="{{ old('shift_name') }}"
-                                class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
-                        </div>
-                    </div>
-                    <div class="w-full max-w-full px-3 shrink-0 md:flex-0">
-                        <div class="mb-4 flex flex-col relative">
-                            <label for="start_time"
-                                class="inline-block ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Waktu Mulai</label>
-                            <input type="time" name="start_time" value="{{ old('start_time') }}"
-                                class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
-                        </div>
-                    </div>
-                    <div class="w-full max-w-full px-3 shrink-0 md:flex-0">
-                        <div class="mb-4 flex flex-col relative">
-                            <label for="end_time"
-                                class="inline-block ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Waktu Selesai</label>
-                            <input type="time" name="end_time" value="{{ old('end_time') }}"
+                            <label for="location_name"
+                                class="inline-block ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Lokasi</label>
+                            <input type="text" name="location_name" value="{{ old('location_name') }}"
                                 class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
                         </div>
                     </div>

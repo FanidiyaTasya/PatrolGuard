@@ -45,7 +45,8 @@ class ScheduleController extends Controller {
             'day' => 'required'
         ]);
         Schedule::create($validatedData);
-        return redirect('/schedules')->with('success', 'Jadwal berhasil ditambahkan!');
+        session()->flash('toast_message', 'Data has been added!');
+        return redirect('/schedules');
     }
 
     public function editGuard($id) {
@@ -65,13 +66,15 @@ class ScheduleController extends Controller {
         ]);
     
         Schedule::where('id', $id)->update($rules);
-        return redirect('/schedules')->with('success', 'Data has been updated!');
+        session()->flash('toast_message', 'Data has been added!');
+        return redirect('/schedules');
     }
 
     public function destroyGuard($id) {
         $schedule = Schedule::find($id);
         $schedule->delete();
-        return back()->with('toast_success', 'Data has been deleted!');
+        session()->flash('toast_message', 'Data has been deleted!');
+        return back();
     }
 
     public function createShift() {
@@ -88,8 +91,8 @@ class ScheduleController extends Controller {
             'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
         Shift::create($validatedData);
-        return redirect('/schedules')->with('toast_success', 'Data has been added!');
-        
+        session()->flash('toast_message', 'Data has been added!');
+        return redirect('/schedules');
     }
 
     public function editShift($id) {
@@ -112,12 +115,15 @@ class ScheduleController extends Controller {
         $shift = Shift::findOrFail($id);
         // dd($request->all());
         $shift->update($validatedData);
-        return redirect('/schedules')->with('toast_success', 'Data has been updated!');
+
+        session()->flash('toast_message', 'Data has been updated!');
+        return redirect('/schedules');
     }
 
     public function destroyShift($id) {
         $shift = Shift::find($id);
         $shift->delete();
-        return back()->with('toast_success', 'Data has been deleted!');
+        session()->flash('toast_message', 'Data has been deleted!');
+        return back();
     }
 }

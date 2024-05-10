@@ -15,7 +15,7 @@ class GuardController extends Controller {
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        $guards = Guard::all();
+        $guards = Guard::paginate(5);
         return view('pages.guard.guard', compact('guards'), [
             'title' => 'Data Satpam'
         ]);
@@ -41,7 +41,8 @@ class GuardController extends Controller {
             'password' => 'required|min:6',
             'phone_number' => 'required',
             'address' => 'required',
-        ], [
+        ],
+        [
             'name.required' => 'Kolom Nama harus diisi',
             'birth_date.required' => 'Tanggal Lahir harus diisi',
             'email.required' => 'Kolom Email harus diisi',
@@ -51,10 +52,13 @@ class GuardController extends Controller {
             'password.min' => 'Password harus memiliki minimal 6 karakter',
             'phone_number.required' => 'Kolom Nomor Telepon harus diisi',
             'address.required' => 'Kolom Alamat harus diisi',
-        ]);
+        ]
+        );
         
         Guard::create($validatedData);
-        return redirect('/guard')->with('success','Data has been added!');
+        // return redirect('/guard')->with('toast_success','Data has been added!');
+        session()->flash('toast_message', 'Data has been added!');
+        return redirect('/guard');
         }
 
     /**
@@ -90,7 +94,9 @@ class GuardController extends Controller {
         $validate = $request->validate($rules);
 
         Guard::where('id', $guard->id)->update($validate);
-        return redirect('/guard')->with('success','Data has been updated!');
+        // return redirect('/guard')->with('toast_success','Data has been updated!');
+        session()->flash('toast_message', 'Data has been updated!');
+        return redirect('/guard');
     }
 
     /**
@@ -98,6 +104,8 @@ class GuardController extends Controller {
      */
     public function destroy(Guard $guard) {
         Guard::destroy($guard->id);
-        return redirect('/guard')->with('success','Data has been deleted!');
+        // return redirect('/guard')->with('toast_success','Data has been deleted!');
+        session()->flash('toast_message', 'Data has been deleted!');
+        return redirect('/guard');
     }
 }

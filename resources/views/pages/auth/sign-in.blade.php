@@ -1,4 +1,4 @@
-@extends('auth.main')
+@extends('pages.auth.main')
 
 @section('content')   
 <div class="container sticky top-0 z-sticky">
