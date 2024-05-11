@@ -61,7 +61,9 @@
                                 <div class="mb-4">
                                     <label for="photo"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Foto</label>
-                                    <input type="file" accept="image/*" id="photo"
+                                    <input type="hidden" name="oldPhoto" value="{{ $guard->photo }}">
+
+                                    <input type="file" name="photo" id="photo" onchange="previewImage()"
                                         class="form-control focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                 </div>
                             </div>
@@ -138,19 +140,49 @@
                     </form>
                 </div>
             </div>
+
+            <div class="w-full max-w-full px-3 lg:w-1/3 lg:flex-none">
+                <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                    <div class="p-4 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                        <div class="flex-none w-auto max-w-full px-3">
+                            <div class="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-72 w-72 rounded-xl mx-auto">
+                                @if ($guard->photo)
+                                    <img src="{{ asset('storage/' . $guard->photo) }}" class="img-preview w-full shadow-2xl rounded-xl">
+                                @else
+                                    <img src="{{ asset('assets/img/user_profile.jpeg') }}" class="img-preview w-full shadow-2xl rounded-xl">
+                                @endif
+                            </div>
+                            <div class="mt-6 text-center">
+                                <h5 class="dark:text-white">{{ $guard->name }}</h5>
+                                <div class="mt-6 mb-2 dark:text-white/80">
+                                  <i class="mr-2 dark:text-white ni ni-send"></i>
+                                  {{ $guard->email }}
+                                </div>
+                                <div class="mb-2 font-semibold leading-relaxed text-base dark:text-white/80">
+                                  <i class="mr-2 dark:text-white ni ni-pin-3"></i>
+                                  {{ $guard->address }}
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
+<script>
+    function previewImage() {
+      const image = document.querySelector('#photo');
+      const imgPreview = document.querySelector('.img-preview');
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var formInputs = document.querySelectorAll("form input");
-        var cancelButton = document.querySelector("button[type='button']");
+      imgPreview.style.display = 'block';
 
-        cancelButton.addEventListener("click", function() {
-            formInputs.forEach(function(input) {
-                input.value = "";
-            });
-        });
-    });
-    </script>
+      const oFReader = new FileReader();
+      oFReader.readAsDataURL(image.files[0]);
+
+      oFReader.onload = function(oFREvent) {
+        imgPreview.src = oFREvent.target.result;
+      }
+    }
+</script>
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Guard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class GuardController extends Controller {
     /**
@@ -37,29 +39,23 @@ class GuardController extends Controller {
         $validatedData = $request->validate([
             'name' => 'required',
             'birth_date' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:1024',
             'email' => 'required|email|unique:guards,email',
             'password' => 'required|min:6',
             'phone_number' => 'required',
             'address' => 'required',
-        ],
-        [
-            'name.required' => 'Kolom Nama harus diisi',
-            'birth_date.required' => 'Tanggal Lahir harus diisi',
-            'email.required' => 'Kolom Email harus diisi',
-            'email.email' => 'Format Email tidak valid',
-            'email.unique' => 'Email sudah digunakan',
-            'password.required' => 'Kolom Password harus diisi',
-            'password.min' => 'Password harus memiliki minimal 6 karakter',
-            'phone_number.required' => 'Kolom Nomor Telepon harus diisi',
-            'address.required' => 'Kolom Alamat harus diisi',
-        ]
-        );
-        
+        ]);
+        $validatedData['password'] = Hash::make($validatedData['password']);
+    
+        if ($request->hasFile('photo')) {
+            $validatedData['photo'] = $request->file('photo')->store('photo-profile');
+        }
+
         Guard::create($validatedData);
         // return redirect('/guard')->with('toast_success','Data has been added!');
         session()->flash('toast_message', 'Data has been added!');
         return redirect('/guard');
-        }
+    }
 
     /**
      * Display the specified resource.
@@ -77,7 +73,7 @@ class GuardController extends Controller {
             'guard' => $guard
         ]);
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -85,17 +81,35 @@ class GuardController extends Controller {
         $rules = [
             'name' => 'required',
             'birth_date' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:1024',
             'phone_number' => 'required',
             'address' => 'required',
         ];
         if ($request->email != $guard->email) {
             $rules['email'] = 'required|email|unique:guards,email';
         }
-        $validate = $request->validate($rules);
 
-        Guard::where('id', $guard->id)->update($validate);
-        // return redirect('/guard')->with('toast_success','Data has been updated!');
+        if ($request->filled('password')) {
+            $rules['password'] = 'min:6';
+        }
+        $validatedData = $request->validate($rules);
+
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        if ($request->file('photo')) {
+            if ($guard->photo) {
+                Storage::delete($guard->photo);
+            }
+            $validatedData['photo'] = $request->file('photo')->store('photo-profile');
+        }
+        $guard->update($validatedData);
+    
         session()->flash('toast_message', 'Data has been updated!');
+        // return redirect('/guard')->with('toast_success','Data has been updated!');
         return redirect('/guard');
     }
 
