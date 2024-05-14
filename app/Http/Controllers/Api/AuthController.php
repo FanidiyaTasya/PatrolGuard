@@ -7,6 +7,7 @@ use App\Http\Resources\GuardResource;
 use App\Models\Guard;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
@@ -16,26 +17,29 @@ class AuthController extends Controller {
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $user = Guard::where('email', $credentials['email'])->first();
+        $guard = Guard::where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (!$guard || !Hash::check($credentials['password'], $guard->password)) {
             return response()->json(['error' => 'Invalid email or password'], 401);
         }
         $token = Str::random(60);
-        $user->update(['token' => $token]);
+        $guard->update(['token' => $token]);
     
-        return new GuardResource($user);
+        return new GuardResource($guard);
     }
 
     public function logout(Request $request) {
-        $user = $request->user();
-
-        if ($user) {
-            $user->update(['token' => null]);
-            return response()->json(['message' => 'Logged out successfully'], 200);
-        } else {
+        $token = $request->header('Authorization');
+        if (!$token) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-    }
     
+        $guard = Guard::where('token', $token)->first();
+        if ($guard) {
+            $guard->update(['token' => null]);
+            return response()->json(['message' => 'Successfully logged out'], 200);
+        } else {
+            return response()->json(['error' => 'Invalid token'], 401);
+        }
+    }
 }

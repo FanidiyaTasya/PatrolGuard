@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('/schedule/{id}', [ScheduleController::class, 'index']);
+Route::get('/schedule/{guardId}', [ScheduleController::class, 'show']);

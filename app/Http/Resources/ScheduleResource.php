@@ -14,10 +14,26 @@ class ScheduleResource extends JsonResource {
      */
     public function toArray(Request $request): array {
         return [
+            // 'id' => $this->id,
+            // 'guard_id' => $this->guard_id,
+            // 'shift_id' => $this->shift_id,
+            // 'day' => $this->day,
+            // 'guardRelation' => [
+            //     'id' => $this->guardRelation->id,
+            //     'name' => $this->guardRelation->name,
+            // ],
+            // 'shift' => [
+            //     'id' => $this->shift->id,
+            //     'start_time' => $this->shift->start_time,
+            //     'end_time' => $this->shift->end_time
+            // ],
+            
             'id' => $this->id,
             'guard_id' => $this->guard_id,
-            'shift_id' => $this->shift_id,
-            'day' => $this->day
+            'name' => $this->guardRelation->name,
+            'day' => $this->day,
+            'start_time' => $this->shift->start_time,
+            'end_time' => $this->shift->end_time
         ];
     }
 }

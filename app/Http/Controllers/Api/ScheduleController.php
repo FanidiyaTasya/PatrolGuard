@@ -9,11 +9,9 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller {
     
-    public function index($id) {
-        // $schedules = Schedule::where('guard_id', $id)->get();
-        // return response()->json(['data' => $schedules]);
-        
-        $schedules = Schedule::where('guard_id', $id)->get();
+    public function show($guardId) {
+        $schedules = Schedule::with(['guardRelation', 'shift'])->where('guard_id', $guardId)->get();
         return ScheduleResource::collection($schedules);
+        // return response()->json(['data' => $schedules]);
     }
 }
