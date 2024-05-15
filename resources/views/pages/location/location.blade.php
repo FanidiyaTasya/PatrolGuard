@@ -34,11 +34,9 @@
                   <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $location->location_name }}</p>
                 </td>
                 <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                  {!! QrCode::size(100)->generate($location->location_name); !!}
-                </td>
-                <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                  <a href="#" class="btn btn-secondary text-xs border-0">
-                    <i class="fas fa-edit"></i>
+                  <a href="javascript:void(0);" class="btn btn-secondary text-xs border-0 locModalEditLink"
+                    data-location-id="{{ $location->id }}" data-bs-toggle="modal" data-bs-target="#locModalEdit">
+                    <i class="fas fa-edit" aria-hidden="true"></i>
                   </a>
                   |
                   <a href="/location/{{ $location->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
@@ -46,13 +44,14 @@
                   </a>         
                   |
                   <a href="/location/{{ $location->id }}" class="btn btn-primary text-xs border-0">
-                    <i class="fas fa-eye" aria-hidden="true"></i>
+                    <i class="fas fa-download" aria-hidden="true"></i>
                   </a>
                 </td>                       
               </tr>
               @endforeach
             </tbody>
           </table>
+          @include('pages.location.edit')
         </div>
       </div>
     </div>

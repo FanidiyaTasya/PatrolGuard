@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Location;
-
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use SimpleSoftwareIO\QrCode\Generator;
 
 class LocationController extends Controller {
     /**
@@ -35,78 +32,45 @@ class LocationController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    /*
-    ada 3 cara, 
-    1. masuk database jd svg, blm coba kl download bisa apa ga
-    2. masuk database pathnya, jd nnt download dr folder gt tp gbisa muncul gmbarnya
-    3. ga masuk database jd nnt downloadny lngsung krn pke library, tp hrs install extension
-    */
-
-    // public function store(Request $request) {
-    //     $validatedData = $request->validate([
-    //         'location_name' => 'required',
-    //     ]);
-    //     $barcode = QrCode::size(100)->generate($validatedData['location_name']);
-    //     // dd($barcode); 
-
-    //     // $qrcode = new Generator;
-    //     // $qr = $qrcode->size(200)->generate(request()->get($validatedData['location_name']));
-    //     // dd($qr);
-
-    //     Location::create([
-    //         'location_name' => $validatedData['location_name'],
-    //         'barcode' => $barcode,
-    //     ]);
-
-    //     session()->flash('toast_message', 'Lokasi berhasil disimpan.');
-    //     return redirect('/location');
-    // }
-
-    // // jdkan png masukin folder
-    // public function store(Request $request) {
-    //     $validatedData = $request->validate([
-    //         'location_name' => 'required',
-    //     ]);
-    //     $qrCode = QrCode::size(300)->generate($validatedData['location_name']);
-    //     // $qrCode = QrCode::format('png')->size(300)->errorCorrection('H')->generate($validatedData['location_name']);
-    //     // $base64QRCode = 'data:image/png;base64,' . base64_encode($qrCode);
-
-    //     $filename = 'barcode_' . time() . '.png';
-    //     Storage::disk('public')->put('qr-code/' . $filename, $qrCode);
-
-    //     Location::create([
-    //         'location_name' => $validatedData['location_name'],
-    //         'barcode' => 'qr-code/' . $filename,
-    //     ]);
-
-    //     session()->flash('toast_message', 'Lokasi berhasil disimpan.');
-    //     return redirect('/location');
-    // }
+    public function store(Request $request) {
+        $validate = $request->validate([
+            'location_name' => 'required',
+        ]);
+        Location::create($validate);
+    
+        session()->flash('toast_message', 'Lokasi berhasil disimpan.');
+        return redirect('/location');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Location $location) {
-        $location = Location::findOrFail($location->id);
-        return view('pages.location.show', compact('location'), [
-            'title' => 'Location'
-        ]);
+        $pdf = Pdf::loadview('pages.location.show', compact('location'));
+        return $pdf->download('barcode.pdf');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Location $location)
-    {
-        //
+    public function edit(Location $location) {
+        return response()->json([
+            'id' => $location->id,
+            'location_name' => $location->location_name,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Location $location)
-    {
-        //
+    public function update(Request $request, Location $location) {
+        $validatedData = $request->validate([
+            'location_name' => 'required',
+        ]);
+        $location->update($validatedData);
+    
+        session()->flash('toast_message', 'Data has been updated!');
+        return redirect('/location');
     }
 
     /**
