@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,11 +16,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [UserController::class, 'login']);
+
+Route::middleware('auth.guard')->group(function () {
+    // dashboard
+    Route::get('/today-presence', [AttendanceController::class, 'getToday']);
+    Route::get('/history-presense', [AttendanceController::class, 'getAll']);
+    
+    Route::get('/schedule', [ScheduleController::class, 'show']);
+    
+    Route::get('/get-user', [UserController::class, 'getUser']);
+    Route::post('/logout', [UserController::class, 'logout']);
 });
-
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('/schedule/{guardId}', [ScheduleController::class, 'show']);

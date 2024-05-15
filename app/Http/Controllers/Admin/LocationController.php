@@ -18,7 +18,7 @@ class LocationController extends Controller {
         $title = 'Delete!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        // notify()->success('Laravel Notify is awesome!');
+
         return view('pages.location.location', [
             'title'=> 'Data Lokasi',
             'locations' => Location::all()
