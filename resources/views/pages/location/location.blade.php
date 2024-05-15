@@ -34,15 +34,18 @@
                   <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $location->location_name }}</p>
                 </td>
                 <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                  {!! QrCode::size(100)->generate($location->location_name); !!}
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                   <a href="#" class="btn btn-secondary text-xs border-0">
                     <i class="fas fa-edit"></i>
                   </a>
                   |
-                  <a href="#" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
+                  <a href="/location/{{ $location->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                     <i class="fas fa-trash-alt" aria-hidden="true"></i>
                   </a>         
                   |
-                  <a href="#" class="btn btn-primary text-xs border-0">
+                  <a href="/location/{{ $location->id }}" class="btn btn-primary text-xs border-0">
                     <i class="fas fa-eye" aria-hidden="true"></i>
                   </a>
                 </td>                       
