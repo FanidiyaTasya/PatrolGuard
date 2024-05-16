@@ -11,11 +11,11 @@
           <div class="flex flex-row -mx-3">
             <div class="flex-none w-2/3 max-w-full px-3">
               <div>
-                <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Jumlah Izin Satpam</p>
-                <h5 class="mb-2 font-bold dark:text-white">1</h5>
+                <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Izin Satpam</p>
+                <h5 class="mb-2 font-bold dark:text-white">{{ $permitToday }}</h5>
                 <p class="mb-0 dark:text-white dark:opacity-60">
                   <span class="text-sm font-bold leading-normal text-emerald-500"></span>
-                  Hari ini
+                  hari ini
                 </p>
               </div>
             </div>
@@ -37,9 +37,9 @@
             <div class="flex-none w-2/3 max-w-full px-3">
               <div>
                 <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Kehadiran</p>
-                <h5 class="mb-2 font-bold dark:text-white">300</h5>
+                <h5 class="mb-2 font-bold dark:text-white">{{ $attendance['totalAttendance'] }}</h5>
                 <p class="mb-0 dark:text-white dark:opacity-60">
-                  <span class="text-sm font-bold leading-normal text-emerald-500">90%</span>
+                  <span class="text-sm font-bold leading-normal text-emerald-500">{{ round($attendance['percentage'], 2) }}%</span>
                   bulan ini
                 </p>
               </div>
@@ -62,9 +62,9 @@
             <div class="flex-none w-2/3 max-w-full px-3">
               <div>
                 <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Laporan</p>
-                <h5 class="mb-2 font-bold dark:text-white">36</h5>
+                <h5 class="mb-2 font-bold dark:text-white">{{ $report['totalReports'] }}</h5>
                 <p class="mb-0 dark:text-white dark:opacity-60">
-                  <span class="text-sm font-bold leading-normal text-red-600">9%</span>
+                  <span class="text-sm font-bold leading-normal text-red-600">{{ round($report['percentage'], 2) }}%</span>
                   bulan ini
                 </p>
               </div>
@@ -87,9 +87,9 @@
             <div class="flex-none w-2/3 max-w-full px-3">
               <div>
                 <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Izin</p>
-                <h5 class="mb-2 font-bold dark:text-white">8</h5>
+                <h5 class="mb-2 font-bold dark:text-white">{{ $permitStats['totalPermissions'] }}</h5>
                 <p class="mb-0 dark:text-white dark:opacity-60">
-                  <span class="text-sm font-bold leading-normal text-emerald-500">5%</span>
+                  <span class="text-sm font-bold leading-normal text-emerald-500">{{ round($permitStats['percentage'], 2) }}%</span>
                   bulan ini
                 </p>
               </div>
@@ -107,11 +107,11 @@
 
   <!-- cards row 1 -->
   <div class="flex flex-wrap mt-6 -mx-3">
-    <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-8/12 lg:flex-none">
+    <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:flex-none">
       <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border">
         <div class="p-4 pb-0 mb-0 rounded-t-4">
-          <div class="flex justify-between">
-            <h6 class="mb-2 dark:text-white">Data Izin</h6>
+          <div class="flex justify-between mb-4">
+            <h6 class="mb-2 dark:text-white">Data Izin Satpam</h6>
           </div>
         </div>
         <div class="overflow-x-auto">
@@ -122,37 +122,51 @@
                 <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Nama Satpam</th>
                 <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Tanggal Izin</th>
                 <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Alasan</th>
-                {{-- <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Status</th> --}}
+                <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Surat Keterangan</th>
               </tr>
             </thead>
             <tbody>
+              @foreach ($permissions as $index => $permit)
               <tr>
                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">1</h6>
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">{{ $index + 1 }}</h6>
                 </td>
                 <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">Marzuki</h6>
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">{{ $permit->guardRelation->name }}</h6>
                 </td>
                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">1 Februari 2024</h6>
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">{{ \Carbon\Carbon::parse($permit->permission_date)->translatedFormat('d F Y') }}</h6>
                 </td>
                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">Sakit</h6>
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">{{ $permit->reason }}</h6>
                 </td>
-                {{-- <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
                   <div class="flex-1 text-center">
-                    <a href="#" class="btn btn-warning text-xs border-0">
-                      <h6 class="mb-0 text-sm leading-normal dark:text-white">Pending</h6>
+                    <a href="#" class="btn btn-success text-xs border-0">
+                      <h6 class="mb-0 text-sm leading-normal text-white">Unduh</h6>
                     </a>
                   </div>
-                </td> --}}
+                </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
+          <div class="flex justify-between px-6 mb-1">
+            <div class="mt-3 text-xs text-gray-700">
+                Showing
+                {{ $permissions->firstItem() }}
+                to
+                {{ $permissions->lastItem() }}
+                of
+                {{ $permissions->total() }}
+            </div>
+            <div class="mt-1">
+                {{ $permissions->links() }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
   <!-- end cards -->
 </div>
