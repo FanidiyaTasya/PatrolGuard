@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Resources\ScheduleResource;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +33,9 @@ Route::middleware('auth.guard')->group(function () {
     
     Route::get('/get-user', [UserController::class, 'getUser']);
     Route::post('/logout', [UserController::class, 'logout']);
+});
+
+Route::get('/schedule/{id}', function ($id) {
+    $schedule = Schedule::where('guard_id', $id)->get();
+    return ScheduleResource::collection($schedule);
 });

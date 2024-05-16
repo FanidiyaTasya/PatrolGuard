@@ -24,7 +24,7 @@ class AttendanceFactory extends Factory
             'date' => $date,
             'check_in_time' => $checkInTime,
             'check_out_time' => $checkOutTime,
-            'status' => $this->faker->randomElement(['Hadir', 'Izin', null])
+            'status' => $this->faker->randomElement(['Hadir', 'Tidak Hadir', null])
         ];
     }
 }

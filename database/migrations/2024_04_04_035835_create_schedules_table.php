@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guard_id');
-            $table->foreignId('shift_id');
+            $table->foreignId('guard_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
+            $table->foreignId('shift_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
             $table->string('day');
         });
     }

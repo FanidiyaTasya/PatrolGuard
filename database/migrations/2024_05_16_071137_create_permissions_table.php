@@ -9,14 +9,13 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shift_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
             $table->foreignId('guard_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
-            $table->date('date')->nullable();
-            $table->time('check_in_time')->nullable();
-            $table->time('check_out_time')->nullable();
-            $table->enum('status', ['Hadir', 'Tidak Hadir'])->nullable();
+            $table->date('permission_date');
+            $table->string('reason');
+            $table->string('information')->nullable();
+            // $table->enum('status', ['Menunggu Persetujuan', 'Disetujui', 'Ditolak'])->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('permissions');
     }
 };

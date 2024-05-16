@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guard_id');
-            $table->foreignId('location_id');
+            $table->foreignId('guard_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
+            $table->foreignId('location_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
             $table->string('attachment');
             $table->string('description');
             $table->timestamps();
