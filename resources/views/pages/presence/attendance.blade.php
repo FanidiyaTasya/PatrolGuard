@@ -28,6 +28,8 @@
                       <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Tanggal Presensi</th>
                       <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Jam Kerja</th>
                       <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Nama Satpam</th>
+                      <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Jam Masuk</th>
+                      <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Jam Pulang</th>
                       <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap">Status</th>
                       <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                     </tr>
@@ -44,19 +46,21 @@
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->guardRelation->name }}</p>
                       </td>
-
+                      <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->check_in_time ? $attendance->check_in_time : '-' }}</p>
+                      </td>
+                      <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                        <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $attendance->check_out_time ? $attendance->check_out_time : '-' }}</p>
+                      </td>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         @if ($attendance->status == 'Hadir')
                           <span class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Hadir</span>
                         @elseif ($attendance->status == 'Tidak Hadir')
                             <span class="bg-gradient-to-tl from-red-600 to-orange-600 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Tidak Hadir</span>
-                        @elseif ($attendance->status == 'Izin')
-                            <span class="bg-gradient-to-tl from-blue-700 to-slate-300 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Izin</span>
                         @else
                             <span class="bg-gradient-to-tl from-slate-600 to-slate-300 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Belum Absen</span>
                         @endif
                       </td>
-
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                         <a href="/presence/{{ $attendance->id }}/edit" class="btn btn-secondary text-xs border-0">
                           <i class="fas fa-edit"></i>
@@ -65,10 +69,10 @@
                         <a href="/presence/{{ $attendance->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                           <i class="fas fa-trash-alt" aria-hidden="true"></i>
                         </a>         
-                        |
+                        {{-- |
                         <a href="/presence/{{ $attendance->id }}" class="btn btn-primary text-xs border-0">
                           <i class="fas fa-eye" aria-hidden="true"></i>
-                        </a>
+                        </a> --}}
                       </td>  
                     </tr>
                     @endforeach

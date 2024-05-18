@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GuardRequest;
 use App\Models\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,16 +36,8 @@ class GuardController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'birth_date' => 'required',
-            'photo' => 'image|mimes:jpeg,png,jpg|max:1024',
-            'email' => 'required|email|unique:guards,email',
-            'password' => 'required|min:6',
-            'phone_number' => 'required',
-            'address' => 'required',
-        ]);
+    public function store(GuardRequest $request) {
+        $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($validatedData['password']);
     
         if ($request->hasFile('photo')) {
@@ -52,16 +45,14 @@ class GuardController extends Controller {
         }
 
         Guard::create($validatedData);
-        // return redirect('/guard')->with('toast_success','Data has been added!');
-        session()->flash('toast_message', 'Data has been added!');
-        return redirect('/guard');
+        return redirect('/guard')->with('success','Berhasil menambah data!');
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Guard $guard) {
-        
+
     }
 
     /**
@@ -85,21 +76,8 @@ class GuardController extends Controller {
             'phone_number' => 'required',
             'address' => 'required',
         ];
-        if ($request->email != $guard->email) {
-            $rules['email'] = 'required|email|unique:guards,email';
-        }
-
-        if ($request->filled('password')) {
-            $rules['password'] = 'min:6';
-        }
         $validatedData = $request->validate($rules);
-
-        if ($request->filled('password')) {
-            $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-            unset($validatedData['password']);
-        }
-
+        
         if ($request->file('photo')) {
             if ($guard->photo) {
                 Storage::delete($guard->photo);
@@ -108,9 +86,10 @@ class GuardController extends Controller {
         }
         $guard->update($validatedData);
     
-        session()->flash('toast_message', 'Data has been updated!');
+        // session()->flash('toast_message', 'Data has been updated!');
+        // return redirect('/guard');
         // return redirect('/guard')->with('toast_success','Data has been updated!');
-        return redirect('/guard');
+        return redirect('/guard')->with('success','Berhasil mengubah data!');
     }
 
     /**
@@ -119,7 +98,44 @@ class GuardController extends Controller {
     public function destroy(Guard $guard) {
         Guard::destroy($guard->id);
         // return redirect('/guard')->with('toast_success','Data has been deleted!');
-        session()->flash('toast_message', 'Data has been deleted!');
-        return redirect('/guard');
+        return redirect('/guard')->with('success','Berhasil menghapus data!');
     }
+
+    public function getAccount($id) {
+        $guard = Guard::find($id);
+        return response()->json([
+            'id' => $guard->id,
+            'email' => $guard->email,
+        ]);
+    }
+
+    public function updatePass(Request $request, $id) {
+        $guard = Guard::find($id);
+    
+        $rules = [
+            'password' => 'required',
+        ];
+        if ($request->filled('password')) {
+            $rules['password'] = 'min:6|regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/';
+        }
+        $validatedData = $request->validate($rules, [
+            'password.required' => 'Password harus di isi',
+            'password.min' => 'Password harus memiliki minimal :min karakter.',
+            'password.regex' => 'Password harus mengandung setidaknya satu angka dan satu simbol.',
+        ]);
+    
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+            $guard->update($validatedData);
+            if ($request->ajax()) {
+                return response()->json(['success' => 'Berhasil mengubah password!']);
+            }
+            return redirect('/guard')->with('success', 'Berhasil mengubah password!');
+        } else {
+            return redirect('/guard')->with('error', 'Password tidak diisi!');
+        }
+    }
+    
+    
+
 }

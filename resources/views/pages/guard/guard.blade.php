@@ -68,9 +68,20 @@
                   <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $guard->address }}</p>
                 </td>
                 <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                  <a href="/guard/{{ $guard->id }}/edit" class="btn btn-secondary text-xs border-0">
+                  {{-- <a href="/guard/{{ $guard->id }}/edit" class="btn btn-secondary text-xs border-0">
                     <i class="fas fa-edit" aria-hidden="true"></i>
-                  </a>
+                  </a> --}}
+                  <div class="btn-group">
+                    <a class="btn btn-secondary text-xs dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-edit" aria-hidden="true"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400" href="/guard/{{ $guard->id }}/edit">Ubah Data</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400 passModalEditLink" href="javascript:void(0);"
+                        data-guard-id="{{ $guard->id }}" data-bs-toggle="modal" data-bs-target="#passModalEdit">Ubah Password</a></li>
+                    </ul>
+                  </div>
                   |
                   <a href="/guard/{{ $guard->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                     <i class="fas fa-trash-alt" aria-hidden="true"></i>
@@ -80,6 +91,7 @@
               @endforeach
             </tbody>
           </table>
+          @include('pages.guard.change-pass')
           <div class="flex justify-between px-6">
             <div class="mt-3 text-xs text-gray-700">
                 Showing
@@ -98,21 +110,4 @@
     </div>
   </div>
 </div>
-
-<script>
-const searchInput = document.getElementById('search');
-const guardRows = document.querySelectorAll('.guard-row');
-
-searchInput.addEventListener('input', function () {
-    const searchTerm = this.value.trim().toLowerCase();
-    guardRows.forEach(row => {
-        const name = row.cells[0].textContent.trim().toLowerCase();
-        if (name.includes(searchTerm)) {
-            row.style.display = 'table-row';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-});
-</script>  
 @endsection

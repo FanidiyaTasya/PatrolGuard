@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Guard;
 use App\Models\Shift;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller {
@@ -17,9 +18,15 @@ class AttendanceController extends Controller {
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
+        $attendances = Attendance::orderBy('created_at', 'desc')
+                                ->paginate(5);
+
+        foreach ($attendances as $attendance) {
+            $this->checkStatus($attendance->id);
+        }
         return view('pages.presence.attendance', [
             'title' => 'Presensi',
-            'attendances' => Attendance::paginate(10),
+            'attendances' => $attendances,
         ]);
     }
 
@@ -52,8 +59,7 @@ class AttendanceController extends Controller {
         }
 
         Attendance::create($validatedData);
-        session()->flash('toast_message', 'Data has been added!');
-        return redirect('/presence');
+        return redirect('/presence')->with('success', 'Berhasil menambah data!');
     }
 
     /**
@@ -92,8 +98,7 @@ class AttendanceController extends Controller {
         ]);
     
         Attendance::where('id', $id)->update($rules);
-        session()->flash('toast_message', 'Data has been updated!');
-        return redirect('/presence');
+        return redirect('/presence')->with('success', 'Berhasil mengubah data!');
     }
 
     /**
@@ -102,7 +107,24 @@ class AttendanceController extends Controller {
     public function destroy($id) {
         $attendance = Attendance::find($id);
         $attendance->delete();
-        session()->flash('toast_message', 'Data has been deleted!');
-        return redirect('/presence');
+        return redirect('/presence')->with('success', 'Berhasil mengahapus data!');
+    }
+
+    public function checkStatus($id) {
+        $attendance = Attendance::find($id);
+        $waktu_sekarang = Carbon::now()->format('H:i:s');
+        $tanggal_sekarang = Carbon::today()->format('Y-m-d');
+        // dd($waktu_sekarang, $tanggal_sekarang);
+        $shift = Shift::find($attendance->shift_id);
+
+        if (!$shift) {
+            return response()->json(['error' => 'Shift tidak ditemukan'], 404);
+        }
+
+        $jam_kerja_selesai = $shift->end_time;
+        if (!$attendance->check_in_time && !$attendance->check_out_time && $attendance->date > $tanggal_sekarang && $waktu_sekarang > $jam_kerja_selesai) {
+            $attendance->status = 'Tidak Hadir';
+        }
+        $attendance->save();
     }
 }

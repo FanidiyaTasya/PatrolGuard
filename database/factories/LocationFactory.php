@@ -15,7 +15,7 @@ class LocationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'location_name' => $this->faker->randomElement(['Blok A', 'Blok B', 'Blok C', 'Blok 1', 'Blok 2', 'Blok 3'])
+            'location_name' => $this->faker->randomElement(['Blok A', 'Blok B', 'Blok C', 'Blok D', 'Blok E', 'Blok F'])
         ];
     }
 }

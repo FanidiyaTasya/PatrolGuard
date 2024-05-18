@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
+                            {{-- <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                                 <div class="mb-4">
                                     <label for="email"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Email</label>
@@ -78,9 +78,9 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
+                            {{-- <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                                 <div class="mb-4">
                                     <label for="password"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Password</label>
@@ -90,7 +90,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             </div>
                             {{-- <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />
                                 <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Contact Information</p> --}}

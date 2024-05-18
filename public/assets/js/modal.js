@@ -1,4 +1,4 @@
-// edit jadwal shift
+// get edit jadwal shift
 $(document).ready(function () {
     $('.shiftModalEditLink').on('click', function () {
         var shiftId = $(this).data('shift-id');
@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
 });
 
-// edit location
+// get edit location
 $(document).ready(function () {
     $('.locModalEditLink').on('click', function () {
         var locationId = $(this).data('location-id');
@@ -45,3 +45,87 @@ $(document).ready(function () {
         $('#updateModal').modal('show');
     });
 });
+
+// get change password
+$(document).ready(function () {
+    $('.passModalEditLink').on('click', function () {
+        var guardId = $(this).data('guard-id');
+        console.log('Id:', guardId);
+        
+        $.ajax({
+            url: '/guard/' + guardId + '/account',
+            type: 'GET',
+            success: function(data) {
+                console.log('Data:', data);
+                $('#passModalEdit #email').val(data.email);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+        $('#guard_id').val(guardId);
+        $('#formEdit').attr('action', '/guard/update/' + guardId);
+        $('#updateModal').modal('show');
+    });
+});
+
+function handleFormSubmit(formId, modalId) {
+    $(formId).on('submit', function (event) {
+        event.preventDefault();
+        var form = $(this);
+        var formData = form.serialize();
+        
+        removeFormErrors(formId);
+
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                $(modalId).modal('hide');
+                swal({
+                    title: "Berhasil!",
+                    text: response.success,
+                    icon: "success",
+                    button: "OK",
+                    timer: 1500,
+                });
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    displayFormErrors(formId, errors);
+                } else {
+                    console.error(xhr.responseText);
+                }
+            }
+        });
+    });
+
+    $(modalId).on('hidden.bs.modal', function () {
+        removeFormErrors(formId);
+    });
+}
+
+
+function displayFormErrors(formId, errors) {
+    for (const [key, value] of Object.entries(errors)) {
+        const input = $(formId + ' [name="' + key + '"]');
+        input.addClass('is-invalid');
+        input.next('.invalid-feedback').html(value[0]);
+    }
+}
+
+function removeFormErrors(formId) {
+    $(formId + ' .form-control').removeClass('is-invalid');
+    $(formId + ' .invalid-feedback').html('');
+}
+
+handleFormSubmit('#shiftModal form', '#shiftModal');
+handleFormSubmit('#locModal form', '#locModal');
+handleFormSubmit('#passModalEdit form', '#passModalEdit');
+handleFormSubmit('#shiftModalEdit form', '#shiftModalEdit');
+handleFormSubmit('#locModalEdit form', '#locModalEdit');

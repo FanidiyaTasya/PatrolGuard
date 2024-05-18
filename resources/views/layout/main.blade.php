@@ -23,13 +23,17 @@
       input[type="date"]::-webkit-calendar-picker-indicator {
           margin-right: 0.7rem; 
       }
+
+      input[type="time"]::-webkit-calendar-picker-indicator {
+          margin-right: 0.7rem; 
+      }
     </style>
   </head>
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
     <div class="absolute w-full bg-tosca dark:hidden min-h-75"></div>
     @include('layout.sidebar')
     
-    @include('vendor.bootstrap.toast')
+    {{-- @include('vendor.bootstrap.toast') --}}
     <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
       @include('layout.navbar')
       
@@ -42,26 +46,12 @@
 
   </main>
   </body>
+  <script src="{{ asset('assets/js/search.js') }}"></script>
   {{-- Bootstrap JS --}}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{{ asset('assets/js/modal.js') }}"></script>
-  <script>
-    var toastMessage = "{{ Session::get('toast_message', '') }}";
 
-    function showToast(message) {
-        var toast = document.getElementById('liveToast');
-        var toastBody = document.querySelector('#liveToast .toast-body');
-
-        toastBody.textContent = message;
-        var toastBS = new bootstrap.Toast(toast);
-        toastBS.show();
-    }
-    if (toastMessage) {
-        showToast(toastMessage);
-        "{{ Session::forget('toast_message') }}";
-    }
-</script>
   <!-- plugin for charts  -->
   <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}" async></script>
   <!-- plugin for scrollbar  -->

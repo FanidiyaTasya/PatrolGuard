@@ -10,3 +10,20 @@
         </div>
     </div>
 </div>
+
+<script>
+var toastMessage = "{{ Session::get('toast_message', '') }}";
+
+function showToast(message) {
+    var toast = document.getElementById('liveToast');
+    var toastBody = document.querySelector('#liveToast .toast-body');
+
+    toastBody.textContent = message;
+    var toastBS = new bootstrap.Toast(toast);
+    toastBS.show();
+}
+if (toastMessage) {
+    showToast(toastMessage);
+    "{{ Session::forget('toast_message') }}";
+}
+</script>

@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         Schedule::factory()->count(15)->create();
-        Location::factory()->count(5)->create();
+        Location::factory()->count(4)->create();
         Attendance::factory()->count(5)->create();
         Permission::factory()->count(5)->create();
     }

@@ -7,14 +7,15 @@
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="">
+                <form method="POST">
                     @csrf
                     <div class="w-full max-w-full px-3 shrink-0 md:flex-0">
                         <div class="mb-4 flex flex-col relative">
                             <label for="location_name"
                                 class="inline-block ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Lokasi</label>
-                            <input type="text" name="location_name" value="{{ old('location_name') }}" required autofocus
-                                class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+                            <input type="text" name="location_name" value="{{ old('location_name') }}" autofocus
+                                class="form-control focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+                            <div class="invalid-feedback text-red-500 mt-1"></div>
                         </div>
                     </div>
                 

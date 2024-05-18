@@ -37,9 +37,10 @@ class LocationController extends Controller {
             'location_name' => 'required',
         ]);
         Location::create($validate);
-    
-        session()->flash('toast_message', 'Lokasi berhasil disimpan.');
-        return redirect('/location');
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Berhasil menambah data!']);
+        }
+        return redirect('/location')->with('success', 'Berhasil menambah data!');
     }
 
     /**
@@ -68,9 +69,10 @@ class LocationController extends Controller {
             'location_name' => 'required',
         ]);
         $location->update($validatedData);
-    
-        session()->flash('toast_message', 'Data has been updated!');
-        return redirect('/location');
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Berhasil mengubah data!']);
+        }
+        return redirect('/location')->with('success', 'Berhasil mengubah data!');
     }
 
     /**
@@ -78,7 +80,6 @@ class LocationController extends Controller {
      */
     public function destroy(Location $location) {
         Location::destroy($location->id);
-        session()->flash('toast_message', 'Data has been deleted!');
-        return redirect('/location');
+        return redirect('/location')->with('success', 'Berhasil menghapus data!');
     }
 }

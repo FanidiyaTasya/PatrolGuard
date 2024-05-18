@@ -13,7 +13,7 @@
                                 <div class="mb-4">
                                     <label for="guard_id"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Satpam</label>
-                                    <select id="guard_id" name="guard_id" required
+                                    <select id="guard_id" name="guard_id" 
                                         class="form-control @error('guard_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="" selected disabled>Pilih Nama</option>
                                         @foreach ($guards as $guard)
@@ -21,9 +21,7 @@
                                         @endforeach
                                     </select>
                                     @error('guard_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -32,17 +30,15 @@
                                 <div class="mb-4">
                                     <label for="shift_id"
                                         class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Shift</label>
-                                    <select id="shift_id" name="shift_id" required
-                                        class="form-control @error('shift') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
-                                        <option value="">Pilih Shift</option>
+                                    <select id="shift_id" name="shift_id"
+                                        class="form-control @error('shift_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                        <option value="" selected disabled>Pilih Shift</option>
                                         @foreach ($shifts as $shift)
                                             <option value="{{ $shift->id }}">{{ $shift->start_time }} - {{ $shift->end_time }}</option>
                                         @endforeach
                                     </select>
                                     @error('shift_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -50,7 +46,7 @@
                             <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                                 <div class="mb-4">
                                     <label for="day" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Hari</label>
-                                    <select id="day" name="day" required
+                                    <select id="day" name="day"
                                         class="form-control @error('day') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="" selected disabled>Pilih Hari</option>
                                         @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $day)
@@ -58,9 +54,7 @@
                                         @endforeach
                                     </select>
                                     @error('day')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

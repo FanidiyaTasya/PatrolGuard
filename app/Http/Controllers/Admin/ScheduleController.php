@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ScheduleRequest;
+use App\Http\Requests\ShiftRequest;
 use App\Models\Guard;
 use App\Models\Schedule;
 use App\Models\Shift;
@@ -38,15 +40,10 @@ class ScheduleController extends Controller {
         ]);
     }
 
-    public function storeGuard(Request $request) {
-        $validatedData = $request->validate([
-            'guard_id' => 'required',
-            'shift_id' => 'required',
-            'day' => 'required'
-        ]);
+    public function storeGuard(ScheduleRequest $request) {
+        $validatedData = $request->validated();
         Schedule::create($validatedData);
-        session()->flash('toast_message', 'Data has been added!');
-        return redirect('/schedules');
+        return redirect('/schedules')->with('success', 'Berhasil menambah data!');
     }
 
     public function editGuard($id) {
@@ -58,23 +55,17 @@ class ScheduleController extends Controller {
         ]);
     }
 
-    public function updateGuard(Request $request, $id) {
-        $rules = $request->validate([
-            'guard_id' => 'required',
-            'shift_id' => 'required',
-            'day' => 'required'
-        ]);
+    public function updateGuard(ScheduleRequest $request, $id) {
+        $rules = $request->validated();
     
         Schedule::where('id', $id)->update($rules);
-        session()->flash('toast_message', 'Data has been added!');
-        return redirect('/schedules');
+        return redirect('/schedules')->with('success', 'Berhasil mengubah data!');
     }
 
     public function destroyGuard($id) {
         $schedule = Schedule::find($id);
         $schedule->delete();
-        session()->flash('toast_message', 'Data has been deleted!');
-        return back();
+        return back()->with('success', 'Berhasil mengahapus data!');
     }
 
     public function createShift() {
@@ -84,15 +75,13 @@ class ScheduleController extends Controller {
         ]);
     }
 
-    public function storeShift(Request $request) {
-        $validatedData = $request->validate([
-            'shift_name' => 'required',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-        ]);
+    public function storeShift(ShiftRequest $request) {
+        $validatedData = $request->validated();
         Shift::create($validatedData);
-        session()->flash('toast_message', 'Data has been added!');
-        return redirect('/schedules');
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Berhasil menambah data!']);
+        }
+        return redirect('/schedules')->with('success', 'Berhasil menambah data!');
     }
 
     public function editShift($id) {
@@ -105,25 +94,20 @@ class ScheduleController extends Controller {
         ]);
     }
 
-    public function updateShift(Request $request, $id) {
-        $rules = [
-            'shift_name' => 'required|string',
-            'start_time' => 'required',
-            'end_time' => 'required',
-        ];
-        $validatedData = $request->validate($rules);
+    public function updateShift(ShiftRequest $request, $id) {
+        $validatedData = $request->validated();
         $shift = Shift::findOrFail($id);
         // dd($request->all());
         $shift->update($validatedData);
-
-        session()->flash('toast_message', 'Data has been updated!');
-        return redirect('/schedules');
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Berhasil mengubah data!']);
+        }
+        return redirect('/schedules')->with('success', 'Berhasil mengubah data!');
     }
 
     public function destroyShift($id) {
         $shift = Shift::find($id);
         $shift->delete();
-        session()->flash('toast_message', 'Data has been deleted!');
-        return back();
+        return back()->with('success', 'Berhasil menghapus data!');
     }
 }
