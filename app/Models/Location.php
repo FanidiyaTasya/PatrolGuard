@@ -10,5 +10,9 @@ class Location extends Model {
 
     protected $guarded = ['id'];
     public $timestamps = false;
+
+    public function report() {
+        return $this->hasMany(Report::class);
+    }
 }
     

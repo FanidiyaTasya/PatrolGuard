@@ -23,4 +23,8 @@ class Guard extends Model {
     public function permissions() {
         return $this->hasMany(Permission::class);
     }
+
+    public function reports() {
+        return $this->hasMany(Report::class);
+    }
 }

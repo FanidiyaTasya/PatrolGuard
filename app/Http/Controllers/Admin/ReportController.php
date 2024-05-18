@@ -11,7 +11,10 @@ class ReportController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return view('pages.report', ['title'=> 'Laporan']);
+        return view('pages.report', [
+            'title'=> 'Laporan',
+            'reports' => Report::paginate(4)
+        ]);
     }
 
     /**

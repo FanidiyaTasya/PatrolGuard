@@ -9,6 +9,7 @@ use App\Models\Attendance;
 use App\Models\Guard;
 use App\Models\Location;
 use App\Models\Permission;
+use App\Models\Report;
 use App\Models\Schedule;
 use App\Models\Shift;
 use App\Models\User;
@@ -22,11 +23,6 @@ class DatabaseSeeder extends Seeder {
         Admin::create([
             'name' => 'Fanidiya Tasya',
             'email' => 'tasya@gmail.com',
-            'password' => bcrypt('1234')
-        ]);
-        Admin::create([
-            'name' => 'Ananda Rizky',
-            'email' => 'nanda@gmail.com',
             'password' => bcrypt('1234')
         ]);
         Guard::factory()->count(3)->create();
@@ -58,5 +54,6 @@ class DatabaseSeeder extends Seeder {
         Location::factory()->count(4)->create();
         Attendance::factory()->count(5)->create();
         Permission::factory()->count(5)->create();
+        Report::factory()->count(10)->create();
     }
 }
