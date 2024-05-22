@@ -28,10 +28,12 @@
 </head>
 <body>
     <div class="container">
-        <h3>Silakan pindai barcode ini untuk melaporkan kondisi keamanan.</h3>
+        <h2>Silakan pindai barcode dibawah ini 
+            untuk melaporkan kondisi keamanan.
+        </h2>
         <div class="barcode-container">
-            @if($location && $location->location_name)
-                <img class="barcode" src="data:image/png;base64, {!! base64_encode(QrCode::size(300)->generate($location->location_name)) !!}" alt="QR Code">
+            @if($location && $location->id)
+                <img class="barcode" src="data:image/png;base64, {!! base64_encode(QrCode::size(300)->generate($location->id)) !!}" alt="QR Code">
             @else
                 <p>Barcode tidak tersedia</p>
             @endif

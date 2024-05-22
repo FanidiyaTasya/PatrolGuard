@@ -75,3 +75,20 @@
         });
     </script>
 @endif
+
+@if(session()->has('info'))
+    <script>
+        // Swal.fire({
+        //     icon: 'error',
+        //     title: '{{ session()->get('error') }}',
+        //     timer: 1500,
+        // });
+        swal({
+            title: "Info!",
+            text: "{{ session()->get('info') }}",
+            icon: "info",
+            button: "OK",
+            timer: 1500,
+        });
+    </script>
+@endif

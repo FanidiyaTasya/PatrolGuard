@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Guard;
 use App\Models\Shift;
@@ -18,12 +19,12 @@ class AttendanceController extends Controller {
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        $attendances = Attendance::orderBy('created_at', 'desc')
-                                ->paginate(5);
+        $attendances = Attendance::orderBy('date', 'desc')
+                                ->paginate(8);
 
-        foreach ($attendances as $attendance) {
-            $this->checkStatus($attendance->id);
-        }
+        // foreach ($attendances as $attendance) {
+        //     $this->checkStatus($attendance->id);
+        // }
         return view('pages.presence.attendance', [
             'title' => 'Presensi',
             'attendances' => $attendances,
@@ -44,18 +45,13 @@ class AttendanceController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'date' => 'required|date',
-            'shift_id' => 'required|exists:shifts,id',
-            'guard_id' => 'required|exists:guards,id',
-        ]);
+    public function store(AttendanceRequest $request) {
+        $validatedData = $request->validated();
 
         if (Attendance::where('date', $validatedData['date'])
                 ->where('shift_id', $validatedData['shift_id'])
-                ->where('guard_id', $validatedData['guard_id'])
                 ->exists()) {
-        return redirect('/presence')->with('toast_error', 'Data already exists!');
+            session()->flash('info', 'Presensi tersebut sudah dibuat!');
         }
 
         Attendance::create($validatedData);
@@ -122,7 +118,7 @@ class AttendanceController extends Controller {
         }
 
         $jam_kerja_selesai = $shift->end_time;
-        if (!$attendance->check_in_time && !$attendance->check_out_time && $attendance->date > $tanggal_sekarang && $waktu_sekarang > $jam_kerja_selesai) {
+        if ($attendance->date > $tanggal_sekarang && !$attendance->check_in_time && !$attendance->check_out_time && $waktu_sekarang > $jam_kerja_selesai) {
             $attendance->status = 'Tidak Hadir';
         }
         $attendance->save();

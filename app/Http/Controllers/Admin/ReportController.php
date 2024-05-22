@@ -11,9 +11,9 @@ class ReportController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return view('pages.report', [
+        return view('pages.report.report', [
             'title'=> 'Laporan',
-            'reports' => Report::paginate(4)
+            'reports' => Report::paginate(6)
         ]);
     }
 
@@ -36,9 +36,13 @@ class ReportController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(Report $report)
-    {
-        //
+    public function show(Report $report) {
+        $report = Report::findOrFail($report->id);
+        
+        return view('pages.report.show', [
+            'title' => 'Laporan',
+            'report' => $report,
+        ]);
     }
 
     /**

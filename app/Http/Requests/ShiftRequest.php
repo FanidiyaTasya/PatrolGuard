@@ -24,4 +24,12 @@ class ShiftRequest extends FormRequest {
             'end_time' => 'required',
         ];
     }
+
+    public function messages(): array {
+        return [
+            'shift_name.required' => 'Nama Shift harus diisi.',
+            'start_time.required' => 'Waktu Mulai harus diisi.',
+            'end_time.required' => 'Waktu Selesai harus diisi.'
+        ];
+    }
 }

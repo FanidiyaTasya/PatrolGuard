@@ -62,15 +62,29 @@
                         <div class="flex justify-end">
                             <a href="/schedules/guard/create" class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Tambah</a>
                         </div>
-                        <div class="mb-3 flex items-center space-x-4">
+                        {{-- <div class="mb-3 flex items-center space-x-4">
                             <select id="guardFilter"
                                 class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
-                                <option value="">Pilih Satpam</option>
+                                <option value="" selected disabled>Pilih Satpam</option>
                                 @foreach($guards as $guard)
                                     <option value="{{ $guard->id }}">{{ $guard->name }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="mb-3 flex items-center space-x-4">
+                            <select id="dayFilter"
+                                class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                <option value="" selected disabled>Pilih Hari</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                                <option value="Sabtu">Sabtu</option>
+                                <option value="Minggu">Minggu</option>
+                            </select>
                         </div>
+                        
                     </div>
                     <div class="flex-auto px-0 pt-0 pb-2">
                         <div class="p-0 overflow-x-auto">
@@ -126,10 +140,16 @@
                 </div>
             </div>
         </div>
-        <script>
+        {{-- <script>
             document.getElementById('guardFilter').addEventListener('change', function() {
                 var guardId = this.value;
                 window.location.href = '/schedules?guard=' + guardId;
+            });
+        </script> --}}
+        <script>
+            document.getElementById('dayFilter').addEventListener('change', function() {
+                var day = this.value;
+                window.location.href = '/schedules?day=' + day;
             });
         </script>
 @endsection

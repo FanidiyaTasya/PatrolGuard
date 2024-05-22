@@ -17,11 +17,18 @@ class ScheduleController extends Controller {
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
     
-        $guardId = $request->input('guard');
+        // $guardId = $request->input('guard'); // sm kyk di urlnya
+        
+        // $schedules = Schedule::when($guardId,
+        // function ($query) use ($guardId) {
+        //     $query->where('guard_id', $guardId);
+        // })->latest('id')->paginate(10);
+        
+        $day = $request->input('day');
 
-        $schedules = Schedule::when($guardId,
-        function ($query) use ($guardId) {
-            $query->where('guard_id', $guardId);
+        $schedules = Schedule::when($day,
+        function ($query) use ($day) {
+            $query->where('day', $day);
         })->latest('id')->paginate(10);
 
         return view('pages.schedule.schedule', [
@@ -42,6 +49,14 @@ class ScheduleController extends Controller {
 
     public function storeGuard(ScheduleRequest $request) {
         $validatedData = $request->validated();
+        $existingSchedule = Schedule::where('day', $validatedData['day'])
+                                    ->where('shift_id', $validatedData['shift_id'])
+                                    ->exists();
+
+        if ($existingSchedule) {
+            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah ada.');
+        }
+
         Schedule::create($validatedData);
         return redirect('/schedules')->with('success', 'Berhasil menambah data!');
     }

@@ -62,10 +62,10 @@
                         @endif
                       </td>
                       <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                        <a href="/presence/{{ $attendance->id }}/edit" class="btn btn-secondary text-xs border-0">
+                        {{-- <a href="/presence/{{ $attendance->id }}/edit" class="btn btn-secondary text-xs border-0">
                           <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        | --}}
                         <a href="/presence/{{ $attendance->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                           <i class="fas fa-trash-alt" aria-hidden="true"></i>
                         </a>         

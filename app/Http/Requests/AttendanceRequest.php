@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ScheduleRequest extends FormRequest {
+class AttendanceRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -19,17 +19,18 @@ class ScheduleRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'guard_id' => 'required',
+            'date' => 'required|date',
             'shift_id' => 'required',
-            'day' => 'required'
+            'guard_id' => 'required',
         ];
     }
 
     public function messages(): array {
         return [
-            'guard_id.required' => 'Nama Satpam harus diisi.',
-            'shift_id.required' => 'Shift harus diisi.',
-            'day.required' => 'Hari harus diisi.'
+            'date.required' => 'Tanggal harus diisi.',
+            'date.date' => 'Format tanggal tidak valid.',
+            'shift_id.required' => 'Pilih shift terlebih dahulu.',
+            'guard_id.required' => 'Pilih satpam terlebih dahulu.',
         ];
     }
 }

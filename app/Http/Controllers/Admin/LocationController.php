@@ -17,7 +17,7 @@ class LocationController extends Controller {
         confirmDelete($title, $text);
 
         return view('pages.location.location', [
-            'title'=> 'Data Lokasi',
+            'title'=> 'Data Lokasi Patroli',
             'locations' => Location::all()
         ]);
     }
@@ -34,7 +34,10 @@ class LocationController extends Controller {
      */
     public function store(Request $request) {
         $validate = $request->validate([
-            'location_name' => 'required',
+            'location_name' => 'required|unique:locations',
+        ],[
+            'location_name.required' => 'Nama Lokasi harus diisi.',
+            'location_name.unique' => 'Nama Lokasi sudah ada.'
         ]);
         Location::create($validate);
         if ($request->ajax()) {
@@ -65,10 +68,13 @@ class LocationController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request, Location $location) {
-        $validatedData = $request->validate([
-            'location_name' => 'required',
+        $validate = $request->validate([
+            'location_name' => 'required|unique:locations',
+        ],[
+            'location_name.required' => 'Nama Lokasi harus diisi.',
+            'location_name.unique' => 'Nama Lokasi sudah ada.'
         ]);
-        $location->update($validatedData);
+        $location->update($validate);
         if ($request->ajax()) {
             return response()->json(['success' => 'Berhasil mengubah data!']);
         }
