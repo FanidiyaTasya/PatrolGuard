@@ -22,6 +22,7 @@ class UserController extends Controller {
             return response()->json([
                 'message' => 'Successfully logged in',
                 'token' => $token,
+                'data' => new GuardResource($guard)
             ]);
         }
         return response()->json(['error' => 'Invalid email or password'], 401);
