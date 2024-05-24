@@ -21,7 +21,7 @@
             </div>
             <div class="px-3 text-right basis-1/3">
               <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-                <i class="ni leading-none ni-user-run text-lg relative top-3.5 text-white"></i>
+                <i class="ni leading-none ni-check-bold text-lg relative top-3.5 text-white"></i>
               </div>
             </div>
           </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="px-3 text-right basis-1/3">
               <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
-                <i class="ni leading-none ni-world text-lg relative top-3.5 text-white"></i>
+                <i class="ni leading-none ni-calendar-grid-58 text-lg relative top-3.5 text-white"></i>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
                 <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Laporan</p>
                 <h5 class="mb-2 font-bold dark:text-white">{{ $report['totalReports'] }}</h5>
                 <p class="mb-0 dark:text-white dark:opacity-60">
-                  <span class="text-sm font-bold leading-normal text-red-600">{{ round($report['percentage'], 2) }}%</span>
+                  <span class="text-sm font-bold leading-normal text-emerald-500">{{ round($report['percentage'], 2) }}%</span>
                   bulan ini
                 </p>
               </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="px-3 text-right basis-1/3">
               <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
-                <i class="ni leading-none ni-cart text-lg relative top-3.5 text-white"></i>
+                <i class="ni leading-none ni-send text-lg relative top-3.5 text-white"></i>
               </div>
             </div>
           </div>

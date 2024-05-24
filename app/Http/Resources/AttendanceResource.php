@@ -16,11 +16,10 @@ class AttendanceResource extends JsonResource {
             'id' => $this->id,
             'shift_id' => $this->shift_id,
             'guard_id' => $this->guard_id,
-            'date' => $this->date,
+            'date' => $this->date->toDateString(),
             'check_in_time' => $this->check_in_time,
             'check_out_time' => $this->check_out_time,
             'status' => $this->status,
-            'information' => $this->information
         ];
     }
 }

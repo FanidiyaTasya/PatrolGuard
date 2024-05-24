@@ -13,7 +13,11 @@ class AttendanceController extends Controller {
     
     public function getAll() {
         $guardId = Auth::guard('guard')->id();
-        $attendances = Attendance::where('guard_id', $guardId)->get();
+        $attendances = Attendance::where('guard_id', $guardId)
+                                  ->whereNotNull('check_in_time')
+                                  ->whereNotNull('check_out_time')
+                                  ->whereNotNull('status')
+                                  ->get();
         return AttendanceResource::collection($attendances);
     }
 
@@ -27,7 +31,7 @@ class AttendanceController extends Controller {
         return AttendanceResource::collection($attendance);
     }
 
-    public function postCheckIn() {
-
+    public function postCheckIn(Request $request) {
+        
     }
 }
