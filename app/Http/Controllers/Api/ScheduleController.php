@@ -12,6 +12,11 @@ class ScheduleController extends Controller {
     public function show() {
         $guardId = Auth::guard('guard')->id();
         $schedules = Schedule::with(['guardRelation', 'shift'])->where('guard_id', $guardId)->get();
+        $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        $schedules = $schedules->sortBy(function ($schedule) use ($daysOfWeek) {
+            return array_search($schedule->day_name, $daysOfWeek);
+        });
         return ScheduleResource::collection($schedules);
     }
 }
