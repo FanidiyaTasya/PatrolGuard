@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder {
         ]);
         Guard::factory()->count(3)->create();
         Guard::create([
-            'name' => 'guard',
+            'name' => 'Guard',
             'email' => 'guard@gmail.com',
             'password' => bcrypt('guard123')
         ]);

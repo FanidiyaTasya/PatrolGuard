@@ -15,7 +15,7 @@ class ReportResource extends JsonResource {
         return [
             'id' => $this->id,
             'guard_id' => $this->guard_id,
-            'location_id' => $this->shift_id,
+            'location_id' => $this->location_id,
             'status' => $this->status,
             'description' => $this->description,
             'attachment' => $this->attachment,
