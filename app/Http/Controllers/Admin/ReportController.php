@@ -13,7 +13,7 @@ class ReportController extends Controller {
     public function index() {
         return view('pages.report.report', [
             'title'=> 'Laporan',
-            'reports' => Report::paginate(6)
+            'reports' => Report::orderBy('created_at', 'desc')->paginate(6)
         ]);
     }
 

@@ -27,12 +27,18 @@
                   <span class="font-semibold text-slate-700 dark:text-white">Deskripsi:</span>
                   <span class="text-slate-700 dark:text-white">{{ $report->description }}</span>
                 </div>
-                <div class="mb-2 text-sm leading-tight dark:text-white/80">
+                {{-- <div class="mb-2 text-sm leading-tight dark:text-white/80">
                   <span class="font-semibold text-slate-700 dark:text-white">Lampiran:</span>
                   <div class="mt-2">
                     <img src="{{ asset('storage/' . $report->attachment) }}" alt="Lampiran" class="max-w-full h-auto rounded-lg">
                   </div>
-                </div>
+                </div> --}}
+                <div class="mb-2 text-sm leading-tight dark:text-white/80">
+                  <span class="font-semibold text-slate-700 dark:text-white">Lampiran:</span>
+                  <div class="mt-3">
+                      <img src="{{ asset('storage/' . $report->attachment) }}" alt="Lampiran" class="max-w-64 h-auto rounded-lg">
+                  </div>
+              </div>
               </div>
               <div class="text-right">
                 <h6 class="text-md leading-normal dark:text-white">{{ \Carbon\Carbon::parse($report->created_at)->translatedFormat('l, d F Y') }}</h6>
