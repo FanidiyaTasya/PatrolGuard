@@ -60,11 +60,12 @@ class AttendanceController extends Controller {
         return response()->json(['message' => 'Successfully made a presence.'], 200);
     }
 
-    public function hasAttendedToday() {
+    public static function hasAttendedToday() {
         $guardId = Auth::guard('guard')->id();
         $today = Carbon::today()->toDateString();
         $attendance = Attendance::where('guard_id', $guardId)
                                 ->where('date', $today)
+                                ->whereNotNull('check_in_time')
                                 ->first();
 
         return !is_null($attendance);

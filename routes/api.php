@@ -14,6 +14,7 @@ Route::middleware('auth.guard')->group(function () {
     Route::get('/today-presence', [AttendanceController::class, 'getToday']);
     Route::post('/permission', [AttendanceController::class, 'postPermission']);
     Route::get('/report/today', [ReportController::class, 'hasReportedToday']);
+    // Route::get('/attend/today', [AttendanceController::class, 'hasAttendedToday']);
     Route::get('/history-presence', [AttendanceController::class, 'getAll']);
     
     // schedule

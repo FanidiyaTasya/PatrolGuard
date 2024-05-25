@@ -15,6 +15,8 @@ class AttendanceResource extends JsonResource {
         return [
             'id' => $this->id,
             'shift_id' => $this->shift_id,
+            'start_time' => $this->shift->start_time,
+            'end_time' => $this->shift->end_time,
             'guard_id' => $this->guard_id,
             'date' => $this->date->toDateString(),
             'check_in_time' => $this->check_in_time,

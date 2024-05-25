@@ -18,8 +18,7 @@ class ReportController extends Controller {
     }
 
     public function hasReportedToday() {
-        $attendanceController = new AttendanceController();
-        $attendedToday = $attendanceController->hasAttendedToday();
+        $attendedToday = AttendanceController::hasAttendedToday();
 
         if ($attendedToday) {
             $guardId = Auth::guard('guard')->id();
