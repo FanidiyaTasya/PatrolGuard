@@ -82,7 +82,7 @@ class GuardController extends Controller {
             if ($guard->photo) {
                 Storage::delete($guard->photo);
             }
-            $validatedData['photo'] = $request->file('photo')->store('photo-profile');
+            $validatedData['photo'] = $request->file('photo')->store('photo-profile', 'public');
         }
         $guard->update($validatedData);
     

@@ -20,12 +20,13 @@
     <!-- Main Styling -->
     <link href="{{ asset('assets/css/argon-dashboard-tailwind.css?v=1.0.1') }}" rel="stylesheet" />
     <style>
-      input[type="date"]::-webkit-calendar-picker-indicator {
+      input[type="date"]::-webkit-calendar-picker-indicator,
+      input[type="time"]::-webkit-calendar-picker-indicator {
           margin-right: 0.7rem; 
       }
 
-      input[type="time"]::-webkit-calendar-picker-indicator {
-          margin-right: 0.7rem; 
+      input[type="password"] {
+        margin-right: 0.7rem; 
       }
     </style>
   </head>
