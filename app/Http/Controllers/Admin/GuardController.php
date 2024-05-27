@@ -41,7 +41,7 @@ class GuardController extends Controller {
         $validatedData['password'] = Hash::make($validatedData['password']);
     
         if ($request->hasFile('photo')) {
-            $validatedData['photo'] = $request->file('photo')->store('photo-profile');
+            $validatedData['photo'] = $request->file('photo')->store('photo-profile', 'public');
         }
 
         Guard::create($validatedData);

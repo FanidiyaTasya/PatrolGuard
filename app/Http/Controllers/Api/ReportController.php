@@ -44,7 +44,7 @@ class ReportController extends Controller {
         $validated['guard_id'] = Auth::guard('guard')->id();
 
         if ($request->hasFile('attachment')) {
-            $validated['attachment'] = $request->file('attachment')->store('report-attachments');
+            $validated['attachment'] = $request->file('attachment')->store('report-attachments', 'public');
         }
         $report = Report::create($validated);
 
