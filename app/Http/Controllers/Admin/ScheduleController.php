@@ -72,6 +72,15 @@ class ScheduleController extends Controller {
 
     public function updateGuard(ScheduleRequest $request, $id) {
         $rules = $request->validated();
+
+        $existingSchedule = Schedule::where('day', $rules['day'])
+                                ->where('shift_id', $rules['shift_id'])
+                                ->where('id', '!=', $id)
+                                ->exists();
+
+        if ($existingSchedule) {
+            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah ada.');
+        }
     
         Schedule::where('id', $id)->update($rules);
         return redirect('/schedules')->with('success', 'Berhasil mengubah data!');

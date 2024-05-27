@@ -21,7 +21,7 @@ class PermissionFactory extends Factory {
         $reason = $this->faker->randomElement($reasons);
 
         return [
-            'guard_id' => $this->faker->numberBetween(1, 3),
+            'guard_id' => $this->faker->numberBetween(1, 4),
             'permission_date' => $permissionDate,
             'reason' => $reason,
         ];

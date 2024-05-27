@@ -15,9 +15,9 @@ class ReportFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'guard_id' => $this->faker->numberBetween(1, 3),
-            'location_id' => $this->faker->numberBetween(1, 3),
-            'status' => $this->faker->randomElement(['Aman', 'Tidak Aman']),
+            'guard_id' => $this->faker->numberBetween(1, 4),
+            'location_id' => $this->faker->numberBetween(1, 4),
+            'status' => 'Aman',
             'description' => $this->faker->sentence,
             'attachment' => $this->faker->imageUrl(),
         ];

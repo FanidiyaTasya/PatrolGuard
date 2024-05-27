@@ -15,19 +15,6 @@ class AttendanceFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array {
-        // $checkInTime = $this->faker->time('H:i:s');
-        // $checkOutTime = $this->faker->time('H:i:s');
-        // $date = $this->faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d');
-        // return [
-        //     'shift_id' => $this->faker->numberBetween(1, 3),
-        //     'guard_id' => $this->faker->numberBetween(1, 3),
-        //     'date' => $date,
-        //     'check_in_time' => $checkInTime,
-        //     'check_out_time' => $checkOutTime,
-        //     'status' => $this->faker->randomElement(['Hadir', 'Tidak Hadir', null])
-        // ];
-
-
         $checkInTime = $this->faker->optional()->time('H:i:s');
         $checkOutTime = $this->faker->optional()->time('H:i:s');
         

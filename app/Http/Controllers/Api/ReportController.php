@@ -13,7 +13,7 @@ class ReportController extends Controller {
 
     public function getAll() {
         $guardId = Auth::guard('guard')->id();
-        $report = Report::where('guard_id', $guardId)->get();
+        $report = Report::where('guard_id', $guardId)->orderBy('created_at', 'desc')->get();
         return ReportResource::collection($report);
     }
 

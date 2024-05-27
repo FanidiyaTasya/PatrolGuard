@@ -18,10 +18,9 @@ class ScheduleFactory extends Factory
         $faker = fake('id_ID');
         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
         return [
-            'guard_id' => $faker->numberBetween(1, 3),
+            'guard_id' => $faker->numberBetween(1, 4),
             'shift_id' => $faker->numberBetween(1, 3),
             'day' => $faker->randomElement($days),
-            // 'day' => $faker->dayOfWeek, // Jika menggunakan ini, pastikan bahwa faker-nya mendukung metode dayOfWeek
         ];
     }
 }

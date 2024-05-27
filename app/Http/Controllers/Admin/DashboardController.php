@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Permission;
 use App\Models\Report;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
@@ -35,13 +36,12 @@ class DashboardController extends Controller {
     public function getAttendance() {
         $month = Carbon::now()->month;
         $totalDays = Carbon::now()->daysInMonth;
-
+        
         $totalAttendance = Attendance::whereMonth('created_at', $month)
-                                    ->where('status', Attendance::class)
+                                    ->where('status', 'Hadir')
                                     ->count();
-
         $percentage = ($totalAttendance / $totalDays) * 100;
-
+        
         return [
             'totalAttendance' => $totalAttendance,
             'percentage' => $percentage,

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder {
         ]);
         Guard::factory()->count(3)->create();
         Guard::create([
-            'name' => 'Guard',
+            'name' => 'Alambana Prabawa Utama',
             'email' => 'guard@gmail.com',
             'password' => bcrypt('guard123')
         ]);
@@ -50,10 +50,10 @@ class DatabaseSeeder extends Seeder {
             'end_time' => '06:00:00'
         ]);
 
-        Schedule::factory()->count(15)->create();
+        Schedule::factory()->count(20)->create();
         Location::factory()->count(4)->create();
-        Attendance::factory()->count(5)->create();
+        Attendance::factory()->count(15)->create();
         Permission::factory()->count(5)->create();
-        Report::factory()->count(10)->create();
+        Report::factory()->count(20)->create();
     }
 }

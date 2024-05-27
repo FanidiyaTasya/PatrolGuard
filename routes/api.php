@@ -12,10 +12,9 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth.guard')->group(function () {
     // dashboard
     Route::get('/today-presence', [AttendanceController::class, 'getToday']);
-    Route::post('/permission', [AttendanceController::class, 'postPermission']);
-    Route::get('/report/today', [ReportController::class, 'hasReportedToday']);
-    // Route::get('/attend/today', [AttendanceController::class, 'hasAttendedToday']);
     Route::get('/history-presence', [AttendanceController::class, 'getAll']);
+    Route::post('/permission', [AttendanceController::class, 'postPermission']);
+    Route::get('/today-report', [ReportController::class, 'hasReportedToday']);
     
     // schedule
     Route::get('/schedule', [ScheduleController::class, 'show']);
