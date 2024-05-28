@@ -80,7 +80,7 @@ class AttendanceController extends Controller {
         $validated['guard_id'] = Auth::guard('guard')->id();
 
         if ($request->hasFile('information')) {
-            $validated['information'] = $request->file('information')->store('permission-files');
+            $validated['information'] = $request->file('information')->store('permission-files', 'public');
         }
         $permission = Permission::create($validated);
 

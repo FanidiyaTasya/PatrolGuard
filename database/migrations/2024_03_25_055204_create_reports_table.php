@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('location_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
             $table->enum('status', ['Aman', 'Tidak Aman']);
             $table->string('description');
-            $table->string('attachment');
+            $table->text('attachment');
             $table->timestamps();
         });
     }

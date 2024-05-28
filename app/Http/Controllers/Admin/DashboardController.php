@@ -7,8 +7,6 @@ use App\Models\Attendance;
 use App\Models\Permission;
 use App\Models\Report;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
     

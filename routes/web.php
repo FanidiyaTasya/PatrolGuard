@@ -15,7 +15,7 @@ Route::post("/", [AuthController::class, 'authenticate']);
 Route::post("/logout", [AuthController::class, 'logout']);
 
 Route::middleware('auth:admin')->group(function (){
-    Route::resource('/dashboard', DashboardController::class)->only('index');
+    Route::resource('/dashboard', DashboardController::class)->only('index','show');
     Route::resource('/guard', GuardController::class);
     
     Route::get('/guard/{id}/account', [GuardController::class, 'getAccount']);

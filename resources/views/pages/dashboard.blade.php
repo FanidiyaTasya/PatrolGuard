@@ -142,9 +142,9 @@
                 </td>
                 <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
                   <div class="flex-1 text-center">
-                    <a href="#" class="btn btn-success text-xs border-0">
-                      <h6 class="mb-0 text-sm leading-normal text-white">Unduh</h6>
-                    </a>
+                      <a href="{{ asset('storage/' . $permit->information) }}" class="btn btn-success text-xs border-0" download>
+                          <h6 class="mb-0 text-sm leading-normal text-white">Unduh</h6>
+                      </a>
                   </div>
                 </td>
               </tr>

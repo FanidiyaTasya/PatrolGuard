@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->foreignId('guard_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
             $table->date('permission_date');
             $table->string('reason');
-            $table->string('information')->nullable();
+            $table->text('information')->nullable();
             // $table->enum('status', ['Menunggu Persetujuan', 'Disetujui', 'Ditolak'])->nullable();
             $table->timestamps();
         });
