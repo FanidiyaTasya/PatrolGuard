@@ -11,10 +11,13 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth.guard')->group(function () {
     // dashboard
+    Route::get('/get-user', [UserController::class, 'getUser']);
     Route::get('/today-presence', [AttendanceController::class, 'getToday']);
     Route::get('/history-presence', [AttendanceController::class, 'getAll']);
     Route::post('/permission', [AttendanceController::class, 'postPermission']);
     Route::get('/today-report', [ReportController::class, 'hasReportedToday']);
+    Route::post('/check-in', [AttendanceController::class, 'checkIn']);
+    Route::post('/check-out', [AttendanceController::class, 'checkOut']);
     
     // schedule
     Route::get('/schedule', [ScheduleController::class, 'show']);

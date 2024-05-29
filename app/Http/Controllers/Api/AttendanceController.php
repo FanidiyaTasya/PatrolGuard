@@ -73,8 +73,8 @@ class AttendanceController extends Controller {
 
     public function postPermission(Request $request) {
         $validated = $request->validate([
-            'permission_date' => 'required|date',
-            'reason' => 'required|string|max:255',
+            'permission_date' => 'required',
+            'reason' => 'required|string|max:150',
             'information' => 'nullable|file|max:2048'
         ]);
         $validated['guard_id'] = Auth::guard('guard')->id();
