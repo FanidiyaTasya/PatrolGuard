@@ -16,12 +16,11 @@ class PermissionFactory extends Factory {
      */
     public function definition(): array {
         $reasons = ['Cuti', 'Acara Keluarga', 'Sakit'];
-
-        $permissionDate = $this->faker->dateTimeBetween('2024-01-01', Carbon::yesterday())->format('Y-m-d');
+        $permissionDate = $this->faker->dateTimeBetween('2024-03-01', Carbon::yesterday())->format('Y-m-d');
         $reason = $this->faker->randomElement($reasons);
 
         return [
-            'guard_id' => $this->faker->numberBetween(1, 4),
+            'guard_id' => $this->faker->numberBetween(1, 3),
             'permission_date' => $permissionDate,
             'reason' => $reason,
         ];

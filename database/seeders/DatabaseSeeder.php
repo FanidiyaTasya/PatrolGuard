@@ -26,24 +26,17 @@ class DatabaseSeeder extends Seeder {
             'password' => bcrypt('1234')
         ]);
         Guard::factory()->count(3)->create();
-        Guard::create([
-            'name' => 'Alambana Prabawa Utama',
-            'email' => 'guard@gmail.com',
-            'password' => bcrypt('guard123')
-        ]);
-
+        
         Shift::create([
             'shift_name' => 'Shift 1',
             'start_time' => '06:00:00',
             'end_time' => '14:00:00'
         ]);
-
         Shift::create([
             'shift_name' => 'Shift 2',
             'start_time' => '14:00:00',
             'end_time' => '22:00:00'
         ]);
-
         Shift::create([
             'shift_name' => 'Shift 3',
             'start_time' => '22:00:00',

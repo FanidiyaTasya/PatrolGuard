@@ -11,14 +11,17 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shift_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
-            $table->foreignId('guard_id')->constrained()->onDelete('cascade')->OnUpdate('cascade');
-            $table->date('date')->nullable();
+            $table->foreignId('shift_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('guard_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->date('date');
             $table->time('check_in_time')->nullable();
             $table->time('check_out_time')->nullable();
             $table->enum('status', ['Hadir', 'Tidak Hadir'])->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->string('location_address')->nullable();
             $table->timestamps();
-        });
+        });        
     }
 
     /**

@@ -36,27 +36,30 @@ class AttendanceController extends Controller {
     public function checkIn(Request $request, $id) {
         $validated = $request->validate([
             'check_in_time' => 'required|date_format:H:i:s',
+            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric',
+            'location_address' => 'required|string|max:255',
         ]);
-
         $attendance = Attendance::findOrFail($id);
         $attendance->update([
             'check_in_time' => $validated['check_in_time'],
             'status' => 'Hadir',
+            'longitude' => $validated['longitude'],
+            'latitude' => $validated['latitude'],
+            'location_address' => $validated['location_address'],
         ]);
-
         return response()->json(['message' => 'Successfully made a presence.'], 200);
     }
 
     public function checkOut(Request $request, $id) {
         $validated = $request->validate([
-            'check_in_time' => 'required|date_format:H:i:s',
+            'check_out_time' => 'required|date_format:H:i:s',
         ]);
 
         $attendance = Attendance::findOrFail($id);
         $attendance->update([
-            'check_in_time' => $validated['check_in_time'],
+            'check_out_time' => $validated['check_out_time'],
         ]);
-
         return response()->json(['message' => 'Successfully made a presence.'], 200);
     }
 

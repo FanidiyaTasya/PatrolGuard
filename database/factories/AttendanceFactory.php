@@ -25,8 +25,7 @@ class AttendanceFactory extends Factory
             $status = null;
         }
         
-        $date = $this->faker->dateTimeBetween('2024-01-01', '2024-12-31')->format('Y-m-d');
-        
+        $date = $this->faker->dateTimeBetween('2024-03-01', '2024-07-10')->format('Y-m-d');
         return [
             'shift_id' => $this->faker->numberBetween(1, 3),
             'guard_id' => $this->faker->numberBetween(1, 3),

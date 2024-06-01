@@ -50,11 +50,13 @@ class ScheduleController extends Controller {
     public function storeGuard(ScheduleRequest $request) {
         $validatedData = $request->validated();
         $existingSchedule = Schedule::where('day', $validatedData['day'])
-                                    ->where('shift_id', $validatedData['shift_id'])
-                                    ->exists();
+                            ->where(function ($query) use ($validatedData) {
+                                $query->where('shift_id', $validatedData['shift_id'])
+                                      ->orWhere('guard_id', $validatedData['guard_id']);
+                            })->exists();
 
         if ($existingSchedule) {
-            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah ada.');
+            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah tersedia.');
         }
 
         Schedule::create($validatedData);
@@ -72,14 +74,16 @@ class ScheduleController extends Controller {
 
     public function updateGuard(ScheduleRequest $request, $id) {
         $rules = $request->validated();
-
         $existingSchedule = Schedule::where('day', $rules['day'])
-                                ->where('shift_id', $rules['shift_id'])
-                                ->where('id', '!=', $id)
-                                ->exists();
+                            ->where(function ($query) use ($rules, $id) {
+                                $query->where('shift_id', $rules['shift_id'])
+                                      ->orWhere('guard_id', $rules['guard_id']);
+                            })
+                            ->where('id', '!=', $id)
+                            ->exists();
 
         if ($existingSchedule) {
-            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah ada.');
+            return redirect('/schedules')->with('info', 'Jadwal tersebut sudah tersedia.');
         }
     
         Schedule::where('id', $id)->update($rules);
