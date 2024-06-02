@@ -29,8 +29,7 @@ class AttendanceController extends Controller {
         $attendance = Attendance::where('guard_id', $guardId)
                                 ->where('date', $today)
                                 ->get();
-        
-        return AttendanceResource::collection($attendance);
+        return new AttendanceResource($attendance);
     }
 
     public function checkIn(Request $request, $id) {
