@@ -66,16 +66,16 @@
                           <i class="fas fa-edit"></i>
                         </a>
                         | --}}
+                        <a href="/presence/{{ $attendance->id }}" class="btn btn-primary text-xs border-0">
+                          <i class="fas fa-eye" aria-hidden="true"></i>
+                        </a>
+                        |
                         <a href="/presence/{{ $attendance->id }}" class="btn btn-danger text-xs border-0" data-confirm-delete="true">
                           <i class="fas fa-trash-alt" aria-hidden="true"></i>
                         </a>         
-                        {{-- |
-                        <a href="/presence/{{ $attendance->id }}" class="btn btn-primary text-xs border-0">
-                          <i class="fas fa-eye" aria-hidden="true"></i>
-                        </a> --}}
                       </td>  
                     </tr>
-                    @endforeach
+                    @endforeach 
                 </tbody>
                 </table>
                 <div class="flex justify-between px-6">

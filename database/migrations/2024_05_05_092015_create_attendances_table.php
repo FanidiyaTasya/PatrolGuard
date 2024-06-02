@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->time('check_in_time')->nullable();
             $table->time('check_out_time')->nullable();
             $table->enum('status', ['Hadir', 'Tidak Hadir'])->nullable();
+            $table->text('photo')->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->string('location_address')->nullable();

@@ -16,6 +16,9 @@ class AuthController extends Controller {
         $credentials = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required'
+        ],[
+            'email' => 'Email harus diisi.',
+            'password' => 'Password harus diisi.'
         ]);
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect('/dashboard');
