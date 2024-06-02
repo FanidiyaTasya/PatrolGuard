@@ -28,7 +28,7 @@ class AttendanceController extends Controller {
         $today = Carbon::today()->toDateString();
         $attendance = Attendance::where('guard_id', $guardId)
                                 ->where('date', $today)
-                                ->get();
+                                ->first();
         return new AttendanceResource($attendance);
     }
 
@@ -42,7 +42,7 @@ class AttendanceController extends Controller {
         ]);
     
         if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('photo-presence', 'public');
+            $validated['photo'] = $request->file('photo')->store('photo-attendance', 'public');
         }
         $attendance = Attendance::findOrFail($id);
         $attendance->update([
@@ -75,7 +75,6 @@ class AttendanceController extends Controller {
                                 ->where('date', $today)
                                 ->whereNotNull('check_in_time')
                                 ->first();
-
         return !is_null($attendance);
     }
 
