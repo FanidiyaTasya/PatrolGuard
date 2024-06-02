@@ -29,7 +29,11 @@ class AttendanceController extends Controller {
         $attendance = Attendance::where('guard_id', $guardId)
                                 ->where('date', $today)
                                 ->first();
-        return new AttendanceResource($attendance);
+        if ($attendance) {
+            return new AttendanceResource($attendance);
+        } else {
+            return response()->json(['error' => 'No attendance found for today.'], 404);
+        }
     }
 
     public function checkIn(Request $request, $id) {

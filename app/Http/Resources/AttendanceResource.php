@@ -22,6 +22,7 @@ class AttendanceResource extends JsonResource {
             'check_in_time' => $this->check_in_time,
             'check_out_time' => $this->check_out_time,
             'status' => $this->status,
+            'photo' => $this->photo,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'location_address' => $this->location_address,
