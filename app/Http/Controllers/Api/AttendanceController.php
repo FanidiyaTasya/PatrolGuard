@@ -36,13 +36,19 @@ class AttendanceController extends Controller {
     public function checkIn(Request $request, $id) {
         $validated = $request->validate([
             'check_in_time' => 'required|date_format:H:i:s',
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
             'location_address' => 'required|string|max:255',
         ]);
+    
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('photo-presence', 'public');
+        }
         $attendance = Attendance::findOrFail($id);
         $attendance->update([
             'check_in_time' => $validated['check_in_time'],
+            'photo' => $validated['photo'],
             'status' => 'Hadir',
             'longitude' => $validated['longitude'],
             'latitude' => $validated['latitude'],
