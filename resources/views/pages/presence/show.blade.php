@@ -13,16 +13,18 @@
             <div class="flex flex-col">
               <span class="mb-2 text-sm leading-tight dark:text-white/80">Nama Satpam: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->guardRelation->name }}</span></span>
               <span class="mb-2 text-sm leading-tight dark:text-white/80">Jam Kerja: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->shift->start_time }} - {{ $attendance->shift->end_time }}</span></span>
-              <span class="mb-2 text-sm leading-tight dark:text-white/80">Jam Masuk: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->check_in_time }}</span></span>
-              <span class="mb-2 text-sm leading-tight dark:text-white/80">Jam Pulang: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->check_out_time }}</span></span>
-              <span class="mb-2 text-sm leading-tight dark:text-white/80">Alamat Presensi: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->location_address }}</span></span>
-              <span class="text-sm leading-tight dark:text-white/80">Bukti Kehadiran: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">
-                @if($attendance->photo)
-                  <img src="{{ asset('storage/' . $attendance->photo) }}" class="max-w-full h-auto rounded-lg shadow-lg mt-2">
-                @else
-                  Tidak Ada
-                @endif</span>
-              </span>
+              <span class="mb-2 text-sm leading-tight dark:text-white/80">Jam Masuk: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->check_in_time ?? '-' }}</span></span>
+              <span class="mb-2 text-sm leading-tight dark:text-white/80">Jam Pulang: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->check_out_time ?? '-' }}</span></span>
+              <span class="mb-2 text-sm leading-tight dark:text-white/80">Alamat Presensi: <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">{{ $attendance->location_address }}</span></span>           
+              <span class="text-sm leading-tight dark:text-white/80">Bukti Kehadiran: 
+                <span class="font-semibold text-slate-700 dark:text-white sm:ml-2">
+                    @if($attendance->photo)
+                        <img src="{{ asset('storage/' . $attendance->photo) }}" style="max-width: 200px; height: auto;" class="rounded-lg shadow-lg mt-2">
+                    @else
+                         Tidak Ada
+                    @endif
+                </span>
+            </span>
             </div>
           </li>
         </ul>
