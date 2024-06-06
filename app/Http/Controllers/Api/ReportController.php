@@ -37,14 +37,18 @@ class ReportController extends Controller {
     public function postReport(Request $request) {
         $validated = $request->validate([
             'location_id' => 'required',
-            'status' => 'required|in:Aman,Tidak Aman',
-            'description' => 'required|string|max:255',
-            'attachment' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'status' => 'required',
+            'description' => 'required|string|max:200',
+            'attachment.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $validated['guard_id'] = Auth::guard('guard')->id();
 
         if ($request->hasFile('attachment')) {
-            $validated['attachment'] = $request->file('attachment')->store('report-attachments', 'public');
+            $attachments = [];
+            foreach ($request->file('attachment') as $file) {
+                $attachments[] = $file->store('report-attachments', 'public');
+            }
+            $validated['attachment'] = $attachments;
         }
         $report = Report::create($validated);
 
