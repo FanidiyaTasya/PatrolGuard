@@ -48,7 +48,7 @@ class ReportController extends Controller {
             foreach ($request->file('attachment') as $file) {
                 $attachments[] = $file->store('report-attachments', 'public');
             }
-            $validated['attachment'] = $attachments;
+            $validated['attachment'] = json_encode($attachments);
         }
         $report = Report::create($validated);
 
