@@ -44,9 +44,9 @@
                                     <select id="guard_id" name="guard_id"
                                         class="form-control @error('guard_id') is-invalid @enderror focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
                                         <option value="" selected disabled>Pilih Nama</option>
-                                        @foreach ($guards as $guard)
+                                        {{-- @foreach ($guards as $guard)
                                             <option value="{{ $guard->id }}">{{ $guard->name }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                     @error('guard_id')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -65,4 +65,68 @@
             </div>
         </div>
     </div>
+    <script>
+        function getFormattedDate(date) {
+            const d = new Date(date);
+            const day = ("0" + d.getDate()).slice(-2);
+            const month = ("0" + (d.getMonth() + 1)).slice(-2);
+            const year = d.getFullYear();
+            return `${year}-${month}-${day}`;
+        }
+    
+        function getDayName(dateStr) {
+            const date = new Date(dateStr);
+            const options = { weekday: 'long' };
+            return new Intl.DateTimeFormat('id-ID', options).format(date);
+        }
+    
+        function updateSatpamDropdown() {
+            const tanggal = getFormattedDate(document.getElementById('date').value);
+            const shift = document.getElementById('shift_id').value;
+            const dayName = getDayName(tanggal);
+
+            // console.log('Tanggal:', tanggal);
+            // console.log('Day Name:', dayName);
+            // console.log('Shift:', shift);
+    
+            if (tanggal && shift) {
+                fetch('/get-guard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ day: dayName, shift: shift }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log('Response Data:', data);
+                    const guardDropdown = document.getElementById('guard_id');
+                    guardDropdown.innerHTML = '';
+    
+                    data.guardOnShift.forEach(guard => {
+                        const option = document.createElement('option');
+                        option.value = guard.id;
+                        option.textContent = guard.name;
+                        guardDropdown.appendChild(option);
+                    });
+    
+                    data.allGuard.forEach(guard => {
+                        if (!data.guardOnShift.find(item => item.id === guard.id)) {
+                            const option = document.createElement('option');
+                            option.value = guard.id;
+                            option.textContent = guard.name;
+                            guardDropdown.appendChild(option);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    
+        document.getElementById('date').addEventListener('change', updateSatpamDropdown);
+        document.getElementById('shift_id').addEventListener('change', updateSatpamDropdown);
+    </script>    
 @endsection

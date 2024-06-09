@@ -7,12 +7,16 @@ use App\Models\Attendance;
 use App\Models\Permission;
 use App\Models\Report;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
     
     public function index() {
-        $today = Carbon::today()->toDateString();
-        $permissions = Permission::whereDate('created_at', $today)
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
+        
+        $permissions = Permission::whereYear('created_at', $year)
+                                ->whereMonth('created_at', $month)
                                 ->orderBy('permission_date', 'desc')
                                 ->paginate(5);
 
@@ -25,6 +29,17 @@ class DashboardController extends Controller {
             'title' => 'Dashboard'
         ]);
     }
+
+    public function filterData(Request $request) {
+        $startDate = $request->input('start-date');
+        $endDate = $request->input('end-date');
+    
+        $permissions = Permission::whereBetween('permission_date', [$startDate, $endDate])
+                                ->with('guardRelation')
+                                ->get();
+    
+        return response()->json($permissions);
+    }    
 
     public function getPermitToday() {
         $today = Carbon::today()->toDateString();

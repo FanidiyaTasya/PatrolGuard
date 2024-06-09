@@ -77,6 +77,17 @@ document.addEventListener('DOMContentLoaded', function () {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
   }
+
+  var targetLatitude = -8.157617462676438;
+  var targetLongitude = 113.72278314484412;
+  var allowedDistance = 400;
+
+  var circle = L.circle([targetLatitude, targetLongitude], {
+      color: 'blue',
+      fillColor: '#cce6ff',
+      fillOpacity: 0.4,
+      radius: allowedDistance
+  }).addTo(map);
 });
 </script>
 @endsection

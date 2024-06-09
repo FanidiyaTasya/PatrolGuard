@@ -30,11 +30,13 @@
                 <div class="mb-2 text-sm leading-tight dark:text-white/80">
                   <span class="font-semibold text-slate-700 dark:text-white">Lampiran:</span>
                   <div class="mt-3 flex">
-                      @foreach(json_decode($report->attachment) as $attachment)
-                          <div class="max-w-1/3 p-2">
-                              <img src="{{ asset('storage/' . $attachment) }}" alt="Lampiran" class="max-w-64 h-auto rounded-lg">
-                          </div>
-                      @endforeach
+                    @if(isset($report->attachment) && is_array(json_decode($report->attachment)))
+                        @foreach(json_decode($report->attachment) as $attachment)
+                            <div class="max-w-1/3 p-2">
+                                <img src="{{ asset('storage/' . $attachment) }}" alt="Lampiran" class="max-w-64 h-auto rounded-lg">
+                            </div>
+                        @endforeach
+                    @endif
                   </div>
               </div>                                    
               </div>

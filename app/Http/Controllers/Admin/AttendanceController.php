@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Guard;
+use App\Models\Schedule;
 use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,9 +23,6 @@ class AttendanceController extends Controller {
         $attendances = Attendance::orderBy('date', 'desc')
                                 ->paginate(8);
 
-        // foreach ($attendances as $attendance) {
-        //     $this->checkStatus($attendance->id);
-        // }
         return view('pages.presence.attendance', [
             'title' => 'Presensi',
             'attendances' => $attendances,
@@ -39,6 +37,28 @@ class AttendanceController extends Controller {
             'title' => 'Presensi',
             'guards' => Guard::all(),
             'shifts' => Shift::all()
+        ]);
+    }
+
+    public function getSatpam(Request $request) {
+        $day = $request->input('day');
+        $shift = $request->input('shift');
+    
+        $guardOnShift = Schedule::where('day', $day)
+                                ->where('shift_id', $shift)
+                                ->with('guardRelation')
+                                ->get()
+                                ->map(function($schedule) {
+                                    return [
+                                        'id' => $schedule->guardRelation->id,
+                                        'name' => $schedule->guardRelation->name,
+                                    ];
+                                });
+    
+        $allGuard = Guard::all();
+        return response()->json([
+            'guardOnShift' => $guardOnShift,
+            'allGuard' => $allGuard
         ]);
     }
 

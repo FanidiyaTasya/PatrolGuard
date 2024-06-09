@@ -109,11 +109,26 @@
   <div class="flex flex-wrap mt-6 -mx-3">
     <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:flex-none">
       <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border">
-        <div class="p-4 pb-0 mb-0 rounded-t-4">
-          <div class="flex justify-between mb-4">
-            <h6 class="mb-2 dark:text-white">Data Izin Satpam</h6>
+
+        <div class="p-4 pb-0 rounded-t-4">
+          <div class="flex justify-between">
+            <h6 class="dark:text-white">Data Izin Satpam</h6>
+          </div>
+          <div class="flex flex-wrap justify-end">
+            <div class="mb-4 mx-4 flex flex-col relative">
+                <label for="start-date" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Tanggal Mulai</label>
+                <input type="date" id="start-date" name="start-date" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" style="max-width: 250px;">
+            </div>
+            <div class="mb-4 mx-4 flex flex-col relative">
+                <label for="end-date" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Tanggal Akhir</label>
+                <input type="date" id="end-date" name="end-date" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" style="max-width: 250px;">
+            </div>
+            <div class="mb-4 mx-4 flex flex-col relative">
+              <button id="filter-button" class="inline-block px-8 py-2 mb-4 font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-tosca border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Filter</button>
+            </div>
           </div>
         </div>
+        
         <div class="overflow-x-auto">
           <table class="items-center w-full mb-4 align-top border-collapse border-gray-200 dark:border-white/40">
             <thead class="align-bottom">
@@ -125,7 +140,7 @@
                 <th class="mb-0 text-center text-xs font-semibold leading-tight dark:text-white dark:opacity-60 p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Surat Keterangan</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="data-table-body">
               @foreach ($permissions as $index => $permit)
               <tr>
                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
@@ -171,4 +186,71 @@
   <!-- end cards -->
 </div>
 </main>
+<script>
+document.getElementById('filter-button').addEventListener('click', function() {
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    // console.log('Start Date:', startDate);
+    // console.log('End Date:', endDate);
+
+    fetch('/filter-permission', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            'start-date': startDate,
+            'end-date': endDate
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // console.log('Data:', data);
+
+        const tableBody = document.getElementById('data-table-body');
+        tableBody.innerHTML = '';
+
+        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        data.forEach((item, index) => {
+            // console.log('Item:', item);
+
+            const date = new Date(item.permission_date);
+            const day = date.getDate();
+            const monthIndex = date.getMonth();
+            const year = date.getFullYear();
+            const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+
+            const row = `
+            <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">${index + 1}</h6>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">${item.guard_relation.name}</h6>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">${formattedDate}</h6>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                    <h6 class="mb-0 text-center text-sm leading-normal dark:text-white">${item.reason}</h6>
+                </td>
+                <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                  <div class="flex-1 text-center">
+                      <a href="/storage/${item.information}" class="btn btn-success text-xs border-0" download>
+                          <h6 class="mb-0 text-sm leading-normal text-white">Unduh</h6>
+                      </a>
+                  </div>
+                </td>
+              </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
 @endsection
